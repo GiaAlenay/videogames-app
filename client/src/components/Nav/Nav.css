@@ -1,0 +1,30 @@
+
+.navBar{
+    cursor: pointer;
+    margin:0px;
+    padding-top: 0%;
+    height: 50px;
+    padding: 0px;
+    transition-timing-function: ease-in;
+    transition: top 0.8s;
+    
+}
+
+.navBar ul{
+   position:-webkit-sticky;
+    top: 0;      
+    overflow: auto;
+    height: auto;
+    
+}
+.navBar li{
+    width: 25%;   
+   display: inline-block;
+   text-align: center;   
+   text-decoration: none;
+   font-size: 17px;
+   color: blue;
+   font-weight: bold;
+   -webkit-text-stroke: 1px rgb(211, 211, 238);
+   
+}

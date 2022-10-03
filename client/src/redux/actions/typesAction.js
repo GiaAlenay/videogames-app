@@ -1,0 +1,9 @@
+export const GET_VIDEOGAMES='GET_VIDEOGAMES';
+export const GET_GENRES='GET_GENRES';
+export const GET_BY_NAME='GET_BY_NAME'
+export const GET_BY_ID='GET_BY_ID'
+export const MEMORY='MEMORY'
+export const CLEAR='CLEAR'
+export const ALL_ID='ALL_ID'
+export const ALL_NAMES='ALL_NAMES'
+export const FILTER_ORDER='FILTER_ORDER'
