@@ -9,10 +9,15 @@ router.get('/', async(req,res)=>{
     const data=await apiGenre.data;
 
     try {       
-        for(d of data.results){            
+        for(d of data.results){
+            const gamesGenres= await Genre.findAll()
+            if(gamesGenres.length<20){
+
                 const[genre,created]=await Genre.findOrCreate({
-                    where:{name:d.name,image_background:d.image_background }
+                    where:{name:d.name },
+                    defaults:{image_background:d.image_background},
                 })
+            }            
             
         }
 

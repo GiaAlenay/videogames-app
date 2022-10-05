@@ -2,3 +2,67 @@
     max-width: 120px;
     height: auto;
 }
+
+.backLogo{
+    max-width: 110px;
+    height: auto;
+}
+
+.container{
+    position: relative;
+    width: 300px;
+    height: 400px;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+
+}
+.card{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    border-left: rgba(255, 255, 255, 0.342) 1px solid;
+    border-top: rgba(255, 255, 255, 0.342) 1px solid;
+    border-radius: 20px;
+    backdrop-filter: blur(30px);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 20px;
+    color: white;
+    backface-visibility: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    transform: rotateY(0deg);
+    transform-style: preserve-3d;
+    transition: 2.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+    
+}
+.front{
+    background: rgba(255, 255, 255, 0.109);
+    transform: rotateY(0deg);
+    padding: 10px;
+
+
+}
+.back{
+    background: rgba(255, 255, 255, 0.109);
+    transform: rotateY(180deg);
+    padding: 10px;
+}
+.container:hover {
+    animation: flipY 3s infinite;
+    /* transform: rotateY(-200deg); */
+}
+/* .container:hover > .back{
+    
+    transform: rotateY(0deg);
+} */
+
+@keyframes flipY{
+    from {
+        -webkit-transform: rotateY(-180deg);
+    }
+    
+    to { -webkit-transform: rotateY(180deg);
+        
+    }
+    
+}

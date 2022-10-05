@@ -6,6 +6,7 @@
     background-size: cover;
     background-color: black;
     color :white;
+    font-size: 85%;
     /* height: 100%;
     margin: 0;
     overflow:auto;
@@ -15,7 +16,7 @@
 
 .backImg{
     overflow:auto;
-    height: 100vh;
+    
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

@@ -10,47 +10,94 @@ export const Detail=(props)=>{
     const dispatch=useDispatch()
 
     useEffect(()=>{
-        dispatch(getVideoGameByIdAction(props.match.params.id))
+        if(props.version!==2){
+
+            dispatch(getVideoGameByIdAction(props.match.params.id))
+        }
         return(()=>{
             dispatch(clearAction('VideogameDetail',{}))
         })
     },[])
 
-    console.log(VideogameDetail)
+    // console.log(VideogameDetail)
 
     return(
         <div className="videogameDetail">
-            {Object.entries(VideogameDetail).length === 0?(
+            {props.version===2?(
                 <div>
-                    <Loading typeLoader={3}/>
-                </div>):(
-                
+                    <div>
+                                <div className="backImg firstPage"
+                                        style={{backgroundImage: `url(${props.VideogameDetail.background_image && props.VideogameDetail.background_image})`
+                                        ,height:`${props.version===2?'42vh':'100vh' }`}}>
+
+                                    {props.version!==2 &&(<div><Nav/></div>)}
+                                    <h2>{props.VideogameDetail.name}</h2>
+                                    <span>{props.VideogameDetail.rating}</span>
+                                    <span>{props.VideogameDetail.released}</span>
+                                    {props.VideogameDetail.platforms?.map((p)=>(
+                                        <div>
+                                            {p}
+                                        </div>
+                                    ))}
+
+                                    {props.genres?.map((p)=>(
+                                        <div>
+                                            {p.name}
+                                        </div>
+                                    ))}
+
+                                </div>
+
+                                <div className="backImg secondPage"
+                                    style={{backgroundImage: `url(${props.VideogameDetail.background_image_additional && props.VideogameDetail.background_image_additional})`,
+                                    height:`${props.version===2?'42vh':'100vh' }`}}>
+                                    <h2>{props.VideogameDetail.name}</h2>
+                                    <p>{props.VideogameDetail.description}</p>
+                                </div>
+                        </div>
+                </div>
+            ):(
                 <div>
-                        <div className="backImg firstPage"
-                        style={{backgroundImage: `url(${VideogameDetail.background_image && VideogameDetail.background_image})`}}>
-                        <Nav/>
-                    <h2>{VideogameDetail.name}</h2>
-                    <span>{VideogameDetail.rating}</span>
-                    <span>{VideogameDetail.released}</span>
-                    {VideogameDetail.platforms?.map((p)=>(
+                    {Object.entries(VideogameDetail).length === 0?(
                         <div>
-                            {p}
-                        </div>
-                    ))}
-
-                    {VideogameDetail.genres?.map((p)=>(
+                            <Loading typeLoader={3}/>
+                        </div>):(
+                        
                         <div>
-                            {p.name}
-                        </div>
-                    ))}
+                                <div className="backImg firstPage"
+                                        style={{backgroundImage: `url(${VideogameDetail.background_image && VideogameDetail.background_image})`
+                                        ,height:`${props.version===2?'30vh':'100vh' }`}}>
 
-                </div>
-                <div className="backImg secondPage"
-                    style={{backgroundImage: `url(${VideogameDetail.background_image_additional && VideogameDetail.background_image_additional})`}}>
-                    <h2>{VideogameDetail.name}</h2>
-                    <p>{VideogameDetail.description}</p>
-                </div>
-                </div>)}
+                                    {props.version!==2 &&(<div><Nav/></div>)}
+                                    <h2>{VideogameDetail.name}</h2>
+                                    <span>{VideogameDetail.rating}</span>
+                                    <span>{VideogameDetail.released}</span>
+                                    {VideogameDetail.platforms?.map((p)=>(
+                                        <div>
+                                            {p}
+                                        </div>
+                                    ))}
+
+                                    {VideogameDetail.genres?.map((p)=>(
+                                        <div>
+                                            {p.name}
+                                        </div>
+                                    ))}
+
+                                </div>
+
+                                <div className="backImg secondPage"
+                                    style={{backgroundImage: `url(${VideogameDetail.background_image_additional && VideogameDetail.background_image_additional})`,
+                                    height:`${props.version===2?'30vh':'100vh' }`}}>
+                                    <h2>{VideogameDetail.name}</h2>
+                                    <p>{VideogameDetail.description}</p>
+                                </div>
+                        </div>)}
+            </div>
+            )}
+            
+
+            
         </div>
     )
 }

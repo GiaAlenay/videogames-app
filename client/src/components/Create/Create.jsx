@@ -1,5 +1,7 @@
 import './Create.css'
 import {Nav} from '../Nav/Nav'
+import {Card} from '../Card/Card'
+import {Detail} from '../Detail/Deatail'
 import { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { genresIcons, platformsIcons } from './icons';
@@ -33,9 +35,10 @@ export const Create=()=>{
     //const allVideogamesName=useSelector(state=>state.allVideogamesName)
     //const allVideogamesId=useSelector(state=>state.allVideogamesId)
     const [animation, setAnimation]=useState(false)
-    const [fadein, setFadein]=useState(false)
-    let currentPage=useRef()
+    const [fadein, setFadein]=useState(false)   
     const [visible, setVisible]=useState(true)
+
+    
     const[errors, setErrors]=useState({})
     const[input,setinput]=useState({        name:'',
                                             id: '',
@@ -47,18 +50,30 @@ export const Create=()=>{
                                             background_image:'',
                                             background_image_additional:'',
                                         })
+    
+
+    const[back1n2,setBack1n2]=useState('')
+    const[genresObj,setGenresObj]=useState([])
+                                     
+
 
      const platformsApi = [
         "PC", "PlayStation 5", "PlayStation 4", "PlayStation 3", "Xbox One", "Xbox Series S/X", "Xbox 360", "Xbox",
         "Nintendo Switch", "Nintendo 3DS", "Nintendo DS", "Nintendo DSi", "iOS", "Android", "macOS", "Linux"]
     const[current,setcurrent]=useState(0)
-
+    const defaultImg='https://www.pngkey.com/png/full/909-9099235_camera-icon-neg-circle.png'
+    const pagesleft=[2,3]
+    const pagesRigth=[4,5,6]
+    
     useEffect(()=>{
+        
         dispatch(getGenresAction())
         //dispatch(getAllIdAction())
         //dispatch(getAllNamesAction())
     },[])
-    
+    useEffect(()=>{
+        backgroundChange()
+    },[back1n2, current])
     const handleInputChange=(e)=>{
         setinput({...input,
             [e.target.name]:e.target.value })
@@ -81,18 +96,25 @@ export const Create=()=>{
                 
         if(e.target.name=== 'genres'){
             if (input.genres.includes(parseInt(e.target.value,10))) {
-                input.genres = input.genres.filter((id) => id !== parseInt(e.target.value,10));
-                              
+                input.genres = input.genres.filter((id) => id !== parseInt(e.target.value,10));            
                 setinput({
                   ...input,
                   genres: input.genres,
                 });
-              } else {
-                 
+                
+                setGenresObj(genresObj.filter((g)=>g.id !== parseInt(e.target.value,10) ))
+              } else {                 
                 setinput({
                   ...input,
                   genres: [...input.genres, parseInt(e.target.value,10)],
                 });
+                allGenres.map((g)=>{
+                    if(g.id===parseInt(e.target.value,10)){
+                        setGenresObj(oldGenres=>[...oldGenres,g])
+                        
+                    }
+                })
+                
               }
         }else{
             if (input.platforms.includes(e.target.value)) {
@@ -112,36 +134,71 @@ export const Create=()=>{
     }
 
 //    const obj={name:"DojaMau",  id:3 ,description:"ttutrvdfhs", platforms:["a","b"],
-          
+         
           
 //    genres:[2,18,19] }
+ const backgroundChange=()=>{
+    if(back1n2===''){setBack1n2(input.background_image)}
+    if(back1n2===input.background_image){
+        setTimeout(function(){setBack1n2(input.background_image_additional)},3000)
+    }
+    else{
+        setTimeout(function(){setBack1n2(input.background_image)},3000)
+    }
     
+    return back1n2
+    
+ }
+const changePagesHandler=(e)=>{
+    // setTimeout(function() {
+    //     setFadein(true)
+    //   }, 1500);
+
+    // setAnimation(true)
+
+    // setVisible(false)
+
+    setcurrent(parseInt(e.target.name,10))
+    
+    // setTimeout(function(){
+    //     setVisible(true)
+    // },2800)
+    // setTimeout(function() {
+    //     setAnimation(false);
+    //   }, 3000);
+    // setTimeout(function() {
+    //    setFadein(false);
+    //   }, 1500);
+}
 const movingPages=(e)=>{
     setTimeout(function() {
         setFadein(true)
       }, 1500);
     setAnimation(true)
     setVisible(false)
-    setTimeout(function(){
-        setVisible(true)
-    },2800)
-    //currentPage.current.fadeOut(100).delay(2800).fadeIn();
-    setTimeout(function() {
-        setAnimation(false);
-      }, 3200);
-    setTimeout(function() {
-       setFadein(false);
-      }, 1500);
-    // if(e.target.name==='prev' ){
-    //     if(current!==1){
-    //         setcurrent(current-1)
-    //     }
-    // }
-    // if(e.target.name==='next' || e.target.name==='start' ){
-    //     if(current<8){
-    //         setcurrent(current+1)
-    //     }
-    // }
+    
+    
+    
+    if(e.target.name==='prev' ){
+        if(current!==1){
+            setcurrent(current-1)
+        }
+    }
+    if(e.target.name==='next' || e.target.name==='start' ){
+        if(current<8){
+            setcurrent(current+1)
+
+            setTimeout(function(){
+                setVisible(true)
+            },2800)
+            setTimeout(function() {
+                setAnimation(false);
+              }, 3000);
+            setTimeout(function() {
+               setFadein(false);
+              }, 1500);
+        }
+    }
    
 }
 
@@ -165,10 +222,12 @@ const movingPages=(e)=>{
     return(
         <div className={`create  `}>
             <Nav/>
-            <form onSubmit={submit}>
-                <div className={`formCreateVideogame ${animation===true && 'animate_content'} ${fadein===true && 'fade'}`} >                
+            <form className='form' onSubmit={submit}>
                     {current===0 &&(
-                        <div className={`currentCreatePag ${visible ?'fadeIn':'fadeOut'}`}  ref={currentPage}>
+                <div className={`formCreateVideogame0 ${animation===true && 'animate_content'} ${fadein===true && 'fade'}`} >   
+                
+                        <div className={`currentCreatePag ${visible ?'fadeIn':'fadeOut'}`} >
+                       
                             <div className='left firstLeft'>
                                 <h1 className='wanna'>Wanna add another game to our website?</h1>
                                <div className='button'>
@@ -184,202 +243,315 @@ const movingPages=(e)=>{
                                 <img className="createFirstImg" src='viogameController.png' alt='controller'/>
                             </div>
                         </div>
+                </div>
                     )}
+                {current>0 && current<7 &&(
 
-                    {current===1 &&(
-                        <div className="currentCreatePag">
-                            <div className='left'>
-
-                            </div>
-
-                            <div className='rigth'>
-                                <input
-                                    className={`inpt inputNaId`} 
-                                    type="text" 
-                                    name="name" 
-                                    value={input.name} 
-                                    placeholder='name...'
-                                    onChange={handleInputChange}/>
-                                <input 
-                                    className={`inpt inputNaId `}
-                                    value={input.id}
-                                    type="number"
-                                    name="id" 
-                                    placeholder="id..."                 
-                                    onChange={handleInputChangeNumb}
-                                                />
-                            </div>
-                            
+                
+                <div className={`containerntnandForm ${animation===true && 'animate_content'} ${fadein===true && 'fade'}`}>
+                    
+                    <div className='currentpagesNumbers containerleftPag'>
+                        <div className='currentNumberPage'>
+                                <button className='btnNumberPageCreate'
+                                    onClick={(e)=>{changePagesHandler(e)}}
+                                    name={1}
+                                    type='button'
+                                >{1}
+                                </button>
                         </div>
-                    )}
+                        {pagesleft?.map((p,i)=>(
+                            <div className='currentNumberPage'>
+                                {/* <div>
+                                    <img className={`lock Close ${current>=p?'displayNone':'displayblock' }`} src='lockClose.png' alt='lockClose'/>
+                                </div> */}
+                                {/* <div>
+                                    <img className="lock Open" src='lockOpen.png' alt='lockOpen'/>
+                                </div>                                 */}
+                                <button name={p}
+                                        type='button'
+                                        onClick={(e)=>{changePagesHandler(e)}}
+                                        className={`btnNumberPageCreate `}
+                                    >{p}
+                                </button>
+                            </div>
+                        ))}
+                     </div>
 
-                    {current===2 &&(
-                        <div className="currentCreatePag">
-                            <div className='left'>
-                            <input 
-                                name="background_image"
-                                placeholder='url...'                
-                                value={input.background_image}
-                                onChange={handleInputChange}
-                                type="url" 
-                                id="fileInput"
-                            ></input>
 
-                            <input 
-                                name="background_image_additional"
-                                placeholder='url...'                
-                                value={input.background_image_additional}
-                                onChange={handleInputChange}
-                                type="url" 
-                                id="fileInput"
-                            ></input>
-                            </div>
-
-                            <div className='rigth'>
-                                
-                            </div>
-                        </div>
-                    )}
-                    {current===3 &&(
-                        <div className="currentCreatePag">
-                            <div className='left'>
-
-                            </div>
-                            <div className='rigth'>
-                                <div>
-                                    <label>Description: <br></br></label>
-                                    <textarea
-                                        type="text"
-                                        value={input.description}
-                                        name= "description"
-                                        onChange={handleInputChange}                        
-                                        placeholder="description..."
-                                        
-                                                />
-                                </div> 
-                            </div>
-                        </div>
-                    )}
-
-                    {current===4 &&(
-                        <div className="currentCreatePag">
-                            <div className='left'>
-
-                            </div>
-                            <div className='rigth'>
-                                <h3>Genres</h3>
-                                <div className='genresContainer'>
-                                    {allGenres?.map((g)=>(
-                                        <div key={g.id} className="genres">
-                                            
-                                            <div className={`genreNameContainer ${input.genres.includes(g.id) && 'genreselectedNameCont'} `}>
-                                                <div className='nameGenre'>{g.name}</div>
-                                            </div>
-                                        <div  className={`rombo ${input.genres.includes(g.id) && 'genreselected'} `} > 
-                                                <button
-                                                    style={{backgroundImage: `url(${allGenres && allGenres.length>0 && genresIcons(g.id)})`}}  
-                                                    type="button"
-                                                    id={g.id} 
-                                                    className="genresOptions"
-                                                    name={'genres'} 
-                                                    value={g.id}                        
-                                                    onClick={(e)=>{Checkbox(e)}} 
-                                                        >
-                                                                                    
-                                                </button> 
-                                            </div>
-                                            
-                                            
-                                        </div>
-                                    ))}
-                                </div> 
-                            </div>
-                        </div>
-                    )}
-
-                    {current===5 &&(
-                        <div className="currentCreatePag">
-                            <div className='left'>
-                                <h3>Platforms</h3>
-                                <div className='platformsContainer'>
-                                    {platformsApi.map((p,i)=>(
-                                        <div key={i} className={`platforms ${input.platforms.includes(p) && 'platformSelected'} `}>
-                                            
-                                            <button 
-                                                        style={{backgroundImage: `url(${platformsIcons(i)})`}}
-                                                        type="button"
-                                                        name={'platforms'} 
-                                                        className="platformsOptions"
-                                                        value={p}                        
-                                                        onClick={(e)=>{Checkbox(e)}} 
-                                                            >
-                                            {/* {p}*/}
-                                            </button>
-                                        </div>))}
-                                </div>
-                            </div>
-                            <div className='rigth'>
-                                
-                            </div>
-                        </div>
-                    )}
-                    {current===6 &&(
-                        <div className="currentCreatePag">
-                            <div className='left'>
-
-                            </div>
-                            <div className='rigth'>
-                                <label>Rating: <br></br></label>
-                                        <input
-                                            type="number"
-                                            value={input.rating}
-                                            name= "rating"
-                                            onChange={handleInputChangeRa}
-                                            step = {0.01}
-                                            placeholder= "rating..."
-                                            min= {0.00}
-                                            max= {5}
-                                            
-                                        />               
+                        <div className={`formCreateVideogame ${animation===true && 'animate_content'} ${fadein===true && 'fade'}`}>
+                    
+                    
+                            {current===1 &&(
+                                <div className={`currentCreatePag ${visible  ?'fadeIn':'fadeOut'}`}>
                                     
-                                        <label>Released: <br></br></label>
-                                        <input
-                                            type="date"
-                                            value={input.released}
-                                            name= "released"
-                                            onChange={handleInputChange}
+                                    <div className='left'>
+                                        <img className='createImgpag1' src='collageVideogames.jpg' alt ='collage'/>
+                                    </div>
+
+                                    <div className='rigth page1rigthback'>
+                                        <div className='divNameinput'>
+                                            <h1 className='questions'>What's your Videogame's name?</h1>
+                                            <input
+                                                className={`inpt inputNaId`} 
+                                                type="text" 
+                                                name="name" 
+                                                value={input.name} 
+                                                placeholder='name...'
+                                                onChange={handleInputChange}/>
+                                        </div>
+
+                                        <div>
+                                            <h1 className='questions'>Let's give it an Id:</h1>
+                                            <input 
+                                                className={`inpt inputNaId `}
+                                                value={input.id}
+                                                type="number"
+                                                name="id" 
+                                                placeholder="id..."                 
+                                                onChange={handleInputChangeNumb}
+                                                            />
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            )}
+
+                            {current===2 &&(
+                                <div className={`currentCreatePag ${visible  ?'fadeIn':'fadeOut'}`}>
+                                    
+                                    <div className='left'>
+                                        <h1 className='questions'>Show us how {input.name.length>0?input.name:'it'} looks:</h1>
+                                        <div className='divNameinput'>
+                                            <input 
+                                                className='inpt'
+                                                name="background_image"
+                                                placeholder='url...'                
+                                                value={input.background_image}
+                                                onChange={handleInputChange}
+                                                type="url" 
+                                                id="fileInput"
+                                            ></input>
+                                        </div>
+                                    
+                                        <div>
+                                            <input 
+                                                className='inpt'
+                                                name="background_image_additional"
+                                                placeholder='url...'                
+                                                value={input.background_image_additional}
+                                                onChange={handleInputChange}
+                                                type="url" 
+                                                id="fileInput"
+                                            ></input>
+                                        </div>
+                                    
+                                    </div>
+
+                                    <div className='rigth'>
+                                        <div className={`${input.background_image.length===0 ? 'imgContainerPhoto':'imgContPhotoUpload'}`}>
+                                            <img className="imgSlctUrl" src={input.background_image.length===0?defaultImg:input.background_image} alt='your photo'/>
+                                        </div>
+                                        <div className={`${input.background_image_additional.length===0 ? 'imgContainerPhoto':'imgContPhotoUpload'}`}>
+                                            <img className="imgSlctUrl" src={input.background_image_additional.length===0?defaultImg:input.background_image_additional} alt='your photo'/>
+                                        </div>    
+                                    </div>
+                                </div>
+                            )}
+                            {current===3 &&(
+                                <div className={`currentCreatePag currentPageWBg ${visible  ?'fadeIn':'fadeOut'}`}
+                                 style={{backgroundImage: `url( ${backgroundChange()})`}}
+                                >
+                                    <div className='left page3 lp3'>
+
+                                    </div>
+                                    <div className='rigth page3 rp3'>
                                         
-                                        />
-                            </div>
-                        </div>
-                    )}
+                                        <h1 className='qp3'>Please describe {input.name.length>0?input.name:'it'}:</h1>
+                                        <div className='containerTextarea'>
+                                            <textarea
+                                                className='inpt textarea'
+                                                type="text"
+                                                value={input.description}
+                                                name= "description"
+                                                onChange={handleInputChange}                        
+                                                placeholder="description..."
+                                                
+                                                        />
+                                        </div> 
+                                    </div>
+                                </div>
+                            )}
 
+                            {current===4 &&(
+                                <div className={`currentCreatePag4 ${visible  ?'fadeIn':'fadeOut'}`}>
+                                 
+                                    <div className='rigth'>
+                                        <h1 className='qp4'> Interesting! What genres does it belongs to?</h1>
+                                        <div className='genresContainer'>
+                                            {allGenres?.map((g)=>(
+                                                <div key={g.id} className="genres">
+                                                    
+                                                    <div className={`genreNameContainer ${input.genres.includes(g.id) && 'genreselectedNameCont'} `}>
+                                                        <div className='nameGenre'>{g.name}</div>
+                                                    </div>
+                                                <div  className={`rombo ${input.genres.includes(g.id) && 'genreselected'} `} > 
+                                                        <button
+                                                            style={{backgroundImage: `url(${allGenres && allGenres.length>0 && genresIcons(g.id)})`}}  
+                                                            type="button"
+                                                            id={g.id} 
+                                                            className="genresOptions"
+                                                            name={'genres'} 
+                                                            value={g.id}                        
+                                                            onClick={(e)=>{Checkbox(e)}} 
+                                                                >
+                                                                                            
+                                                        </button> 
+                                                    </div>
+                                                    
+                                                    
+                                                </div>
+                                            ))}
+                                        </div> 
+                                    </div>
+                                </div>
+                            )}
+
+                            {current===5 &&(
+                                <div className={` currentPgUnique ${visible  ?'fadeIn':'fadeOut'}`}>
+                                    <div className='left'>
+                                        
+                                        <div className='platformsContainer'>
+                                            {platformsApi.map((p,i)=>(
+                                                <div key={i} className={`platforms ${input.platforms.includes(p) && 'platformSelected'} `}>
+                                                    
+                                                    <button 
+                                                                style={{backgroundImage: `url(${platformsIcons(i)})`}}
+                                                                type="button"
+                                                                name={'platforms'} 
+                                                                className="platformsOptions"
+                                                                value={p}                        
+                                                                onClick={(e)=>{Checkbox(e)}} 
+                                                                    >
+                                                    {/* {p}*/}
+                                                    </button>
+                                                </div>))}
+                                        </div>
+                                    </div>
+                                    <div className='rigth rp5'>
+                                        <h1 className='questions qp5'>What platforms is it available on?</h1>
+                                    </div>
+                                </div>
+                            )}
+                            {current===6 &&(
+                                <div className={`currentCreatePag currentUnique6 ${visible  ?'fadeIn':'fadeOut'}`}>
+                                    <div className='left lp6'>
+
+                                    </div>
+                                    <div className='rigth'>
+                                        
+                                            <h1 className='notJump'>ALMOST DONE !!</h1>
+                                        
+                                        <div>
+                                            <h1 className='questions qp6'>Rating:</h1>
+                                            <input      className=' inptP6'
+                                                        type="number"
+                                                        value={input.rating}
+                                                        name= "rating"
+                                                        onChange={handleInputChangeRa}
+                                                        step = {0.01}
+                                                        placeholder= "rating..."
+                                                        min= {0.00}
+                                                        max= {5}
+                                                        
+                                                    />        
+                                        </div>    
+       
+                                        <div>
+                                                <h1 className='questions qp6'>When was {input.name.length>0?input.name:'it'} released?</h1>
+                                                <input
+                                                    className=' inptP6 '
+                                                    type="date"
+                                                    value={input.released}
+                                                    name= "released"
+                                                    onChange={handleInputChange}
+                                                
+                                                />
+                                        </div>  
+
+                                        <button type='button'
+                                                onClick={(e)=>{movingPages(e)}}
+                                                name='next'
+                                                className='nextCreate'>
+                                            {'>>>'}
+                                        </button>        
+                                    </div>
+                                </div>
+                            )}
+
+                                                                      
+                     
+                     </div>
+                     <div className='currentpagesNumbers'>
+                        
+                        {pagesRigth?.map((p,i)=>(
+                            <div className='currentNumberPage'>
+                                {/* <div>
+                                    <img className={`lock Close ${current>=p?'displayNone':'displayblock' }`} src='lockClose.png' alt='lockClose'/>
+                                </div> */}
+                                {/* <div>
+                                    <img className="lock Open" src='lockOpen.png' alt='lockOpen'/>
+                                </div>                                 */}
+                                <button name={p}
+                                        type='button'
+                                        onClick={(e)=>{changePagesHandler(e)}}
+                                        className={`btnNumberPageCreate `}
+                                    >{p}
+                                </button>
+                            </div>
+                        ))}
+                     </div>   
+                </div> 
+                )}
+                {current>6  &&(
+                    <div className={`containerlastcreatesteps ${animation===true && 'animate_content'} ${fadein===true && 'fade'}`}>
                     {current===7 &&(
-                        <div className="currentCreatePag">
-                            <div className='left'>
+                                <div className={`currentCreatePagLast ${visible  ?'fadeIn':'fadeOut'}`}>
+                                    <div className='preview'>
+                                        <div className='left'>
+                                            <Card
+                                                id={input.name}
+                                                name={input.name}
+                                                rating={input.rating}
+                                                background_image={input.background_image}
+                                                genres={genresObj}
+                                                />
+                                        </div>
+                                        <div className='rigth'>
+                                            <Detail version={2} VideogameDetail={input} genres={genresObj}/>
+                                        </div>
+                                    </div>
 
-                            </div>
-                            <div className='rigth'>
-                                
-                            </div>
-                            <div className="btnCreate">
-                            <button className="btnCreatFinal" type="submit" >CREATE</button>
-                    </div>
-                        </div>
-                    )}
+                                    <div className="btnCreate">
+                                        <button className="btnCreatFinal" type="submit" >CREATE</button>
+                                    </div>
+                                </div>
+                            )}
 
                     {current===8 &&(
-                        <div className="currentCreatePag">
-                            <div className='left'>
+                                <div className="currentCreatePag">
+                                    <div className='left'>
 
-                            </div>
-                            <div className='rigth'>
-                                
-                            </div>
-                        </div>
-                    )}
-                     
-                </div> 
+                                    </div>
+                                    <div className='rigth'>
+                                        
+                                    </div>
+                                </div>
+                            )}  
+                </div>)}
+
+
+
+
             </form>
         </div>
     )
