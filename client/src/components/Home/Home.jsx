@@ -7,6 +7,7 @@ import {SearchBar} from '../SearchBar/SearchBar'
 import { getVidoegamesAction,getGenresAction } from "../../redux/actions"
 import { Loading } from "../Loading/Loading";
 import{Pagination} from '../Pagination/Pagination'
+import './Home.css'
 export const Home=()=>{
     const allVideogames=useSelector(state=>state.allVideogames)
     const allGenres=useSelector(state=>state.allGenres)
@@ -18,7 +19,8 @@ export const Home=()=>{
     //console.log(allVideogames)
     return(
 
-        <div>
+        <div className="home">
+            <div className="homecover">
             {allVideogames && allVideogames.length===0?(
                 <div>
                     <Loading typeLoader={1}/>
@@ -26,7 +28,9 @@ export const Home=()=>{
                 <div>
                     <Nav/>
                     <SearchBar/>
-                    <Filter allGenres={allGenres}/>
+                    <div className="filter">
+                        <Filter allGenres={allGenres}/>
+                    </div>
                     {allVideogames && allVideogames[0].error?(
                         <div>
                             {allVideogames[0].error}
@@ -38,7 +42,7 @@ export const Home=()=>{
                     )}
                     
                 </div>)  }
-            
+                </div>
         </div>
     )
 }

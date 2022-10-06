@@ -69,10 +69,10 @@ export const Filter=(props)=>{
     }
 
     return(
-        <div>
+        <div className="filterComp">
             <div>
                 <h2>Filter</h2>
-                <fieldset>
+                <fieldset className="genresCheckBox">
                     <legend>by genre</legend>
                     <input type='checkbox'
                                 id={20} 

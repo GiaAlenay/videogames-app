@@ -517,9 +517,10 @@ const movingPages=(e)=>{
                     {current===7 &&(
                                 <div className={`currentCreatePagLast ${visible  ?'fadeIn':'fadeOut'}`}>
                                     <div className='preview'>
-                                        <div className='left'>
+                                        <div className='left lp7'>
                                             <Card
-                                                id={input.name}
+                                                version={2}
+                                                id={input.id}
                                                 name={input.name}
                                                 rating={input.rating}
                                                 background_image={input.background_image}

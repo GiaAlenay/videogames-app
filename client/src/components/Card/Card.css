@@ -1,68 +1,236 @@
 .backgroundImageCard{
-    max-width: 120px;
-    height: auto;
+    
+    width: 100%;
+    height: 50%;
+    border-radius: 15px 15px 0px 0px;
 }
 
 .backLogo{
-    max-width: 110px;
+    width: 110px;
     height: auto;
 }
 
 .container{
+    
+    display: grid;
+    place-items: center;
+    border-radius: 15px;
+    border:1px solid  rgb(255, 255, 255 ,0.27);
     position: relative;
-    width: 300px;
-    height: 400px;
+    width: 240px;
+    height: 310px;
     perspective: 1000px;
     transform-style: preserve-3d;
+    margin: 7% 0% 0% 0%;
+    
+    
 
 }
 .card{
+    
     position: absolute;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    place-items: center;
-    border-left: rgba(255, 255, 255, 0.342) 1px solid;
-    border-top: rgba(255, 255, 255, 0.342) 1px solid;
-    border-radius: 20px;
-    backdrop-filter: blur(30px);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 20px;
+         
     color: white;
     backface-visibility: hidden;
     font-family: Arial, Helvetica, sans-serif;
     transform: rotateY(0deg);
     transform-style: preserve-3d;
-    transition: 2.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition:  cubic-bezier(0.4, 0.2, 0.2, 1);
     
+    
+    border:1px solid white;
+    border-radius: 15px;
+    background-color: rgb(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    margin-top:1%;
+    margin-bottom: 1%;
+    width: 88%;
+    height: 86%;  
+    
+}
+.back{    
+    transform: rotateY(0deg);
 }
 .front{
-    background: rgba(255, 255, 255, 0.109);
-    transform: rotateY(0deg);
-    padding: 10px;
+    transform: rotateY(180deg);    
+}
 
 
-}
-.back{
-    background: rgba(255, 255, 255, 0.109);
-    transform: rotateY(180deg);
-    padding: 10px;
-}
-.container:hover {
-    animation: flipY 3s infinite;
-    /* transform: rotateY(-200deg); */
-}
-/* .container:hover > .back{
+.shining5{
+    border-color: #ee1111;
+    border-width: 5px;
+    border-style: solid;
+    box-shadow: 0 0 .1rem #fff,
+            0 0 .1rem #fff,
+            0 0 1rem #b60101,
+            0 0 0.8rem #b60101,
+            0 0 0.8rem #b60101,
+            inset 0 0 1.1rem #b60101; 
     
-    transform: rotateY(0deg);
-} */
+}
+.shining4{
+    border-color: #ee6911;
+    border-width: 5px;
+    border-style: solid;
+    box-shadow: 0 0 .1rem #fff,
+            0 0 .1rem #fff,
+            0 0 1rem #ee6911,
+            0 0 0.8rem #ee6911,
+            0 0 0.8rem #ee6911,
+            inset 0 0 1.1rem #ee6911; 
+    
+}
+.shining3{
+    border-color: #11ee41;
+    border-width: 5px;
+    border-style: solid;
+    box-shadow: 0 0 .1rem #fff,
+            0 0 .1rem #fff,
+            0 0 1rem #11ee41,
+            0 0 0.8rem #11ee41,
+            0 0 0.8rem #11ee41,
+            inset 0 0 1.1rem #11ee41; 
+    
+}
+.shining2{
+    border-color: #d8ee11;
+    border-width: 5px;
+    border-style: solid;
+    box-shadow: 0 0 .1rem #fff,
+            0 0 .1rem #fff,
+            0 0 1rem #d8ee11,
+            0 0 0.8rem #d8ee11,
+            0 0 0.8rem #d8ee11,
+            inset 0 0 1.1rem #d8ee11; 
+    
+}
+
+.shining1{
+    border-color: #67e9ee;
+    border-width: 5px;
+    border-style: solid;
+    box-shadow: 0 0 .1rem #fff,
+            0 0 .1rem #fff,
+            0 0 1rem #67e9ee,
+            0 0 0.8rem #67e9ee,
+            0 0 0.8rem #67e9ee,
+            inset 0 0 1.1rem #67e9ee; 
+    
+}
+
+.shining0{
+    border-color: #9e10d6;
+    border-width: 5px;
+    border-style: solid;
+    box-shadow: 0 0 .1rem #fff,
+            0 0 .1rem #fff,
+            0 0 1rem #bc13fe,
+            0 0 0.8rem #bc13fe,
+            0 0 0.8rem #bc13fe,
+            inset 0 0 1.1rem #bc13fe; 
+}
+
+.createNeon{
+    border-color: #9e10d6;
+    border-width: 5px;
+    border-style: solid;
+    box-shadow: 0 0 .1rem #fff,
+            0 0 .1rem #fff,
+            0 0 1rem #bc13fe,
+            0 0 0.8rem #bc13fe,
+            0 0 0.8rem #bc13fe,
+            inset 0 0 1.1rem #bc13fe;  
+}
+
+
+
+.CardPropsCont{
+    height: 47%;
+   
+   vertical-align: middle; 
+}
+
+.flipinfinite {
+    animation: flipY 9s infinite;
+}
+
+
+
+.fliponhover:hover{
+    border-radius: 15px;
+            box-shadow: 0 0 2px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff,
+            0 0 40px #fff, 0 0 50px #fff;
+          -webkit-animation: blink 0.7s infinite alternate;
+          animation: blink 0.7s infinite alternate;
+}    
+
+@keyframes blink {
+    100% {
+      box-shadow: 0 0 3px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff,
+        0 0 70px #fff, 0 0 80px #fff;
+    }
+  }
+  
+  
+@keyframes flip{
+    from {
+        -webkit-transform: rotateY(0);
+    }
+    
+    to { -webkit-transform: rotateY(-180deg);
+        
+    }
+    
+}
+
+
+
 
 @keyframes flipY{
     from {
-        -webkit-transform: rotateY(-180deg);
+        -webkit-transform: rotateY(180deg);
     }
     
-    to { -webkit-transform: rotateY(180deg);
+    to { -webkit-transform: rotateY(-180deg);
         
     }
+    
+}
+.ratingGenresCont{
+    display: grid;
+    grid-template-columns: 60% 40%;
+    margin-top: 8%;
+}
+.cardRatingCont{
+    font-size: 13px;
+    width: 70%;
+    height: 100%;
+    border-radius: 10px;
+    border: 1px solid white;
+    backdrop-filter: blur(15px);
+    background-color: rgb(245, 241, 237 ,0.2);
+}
+.cardName{
+    all:unset;
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+.cardStar{
+    width: 30%;
+}
+.genresVideogames{
+    margin-left: 7%;
+    text-align: left;
+    font-size: 13px;
+}
+.try{
+    border-radius: 15x;
+    width: 240px;
+    height: 310px;
+    background-color: rgba(12, 11, 11, 0.1);
+    backdrop-filter: blur(5px);
+    position: relative;
     
 }

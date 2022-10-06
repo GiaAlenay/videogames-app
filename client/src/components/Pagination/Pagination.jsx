@@ -11,7 +11,7 @@ export const Pagination=(props)=>{
     
     useEffect(()=>{
         setnumberPages([1])
-        for (let i = 2; i < (props.allVideogames.length/12)+1; i++) {
+        for (let i = 2; i < (props.allVideogames.length/15)+1; i++) {
         setnumberPages(oldNumbers=>[...oldNumbers,i])
         
         }
@@ -26,7 +26,7 @@ export const Pagination=(props)=>{
         setCurrentPage(n)
         setGamesPerPage([])
         props.allVideogames.map((p,i)=>{
-            if((12*(n-1))<=i && i<=((n*12)-1)){
+            if((15*(n-1))<=i && i<=((n*15)-1)){
                 setGamesPerPage(oldGame=>[...oldGame,p])
             }
         })
