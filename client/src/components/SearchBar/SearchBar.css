@@ -1,3 +1,72 @@
-.searchVideogamesCont{
+/* .searchVideogamesCont{
     border: 2px solid red
+} */
+.searchform{
+    color: rgb(56, 55, 55);
+}
+.suggestion{
+    background-color: white;
+    text-align: center;
+    height: 22px;
+    width: 400px;
+    font-size: 18px;
+    cursor:pointer;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    
+    margin:0px auto;
+    
+}
+.lupa{
+    all:unset;
+    background-color: white;
+    border-left: 2px solid black;
+    border-bottom:2px solid black ;
+    border-top: 2px solid black;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    width: 25px;
+    height: 26px;
+    cursor: pointer;
+}
+
+.lupaImg{
+    width: 12px;
+    height: 13px;
+}
+#su{
+    border-bottom-right-radius:5px;
+    border-bottom-left-radius: 5px;
+    border-bottom: 1px solid black;
+    
+}
+
+.input{
+    background-color: white;
+    height: 29px;
+    width: 380px;
+    font-size: 19px;
+    border-left: none;
+    border-right: 2px solid black;
+    border-bottom:2px solid black ;
+    border-top: 2px solid black;
+    border-top-right-radius:12px;
+    border-bottom-right-radius:12px;
+}
+.input:focus{
+    all:unset;
+    background-color: white;
+    height: 26px;
+    width: 380px;    
+    border-left: none;
+    border-right: 2px solid black;
+    border-bottom:2px solid black ;
+    border-top: 2px solid black;
+    border-top-right-radius:12px;
+    border-bottom-right-radius:12px;
+    text-align: left;
+}
+
+.suggestion:hover{
+    background-color: rgba(99, 96, 96, 0.25);
 }

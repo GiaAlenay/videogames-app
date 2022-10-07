@@ -2,8 +2,9 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { getVideoGameByIdAction, clearAction} from "../../redux/actions";
 import './Detail.css'
-import {Nav} from '../Nav/Nav'
 import {Loading} from '../Loading/Loading'
+import {Link} from 'react-router-dom'
+import {genresIcons} from '../Create/icons'
 
 export const Detail=(props)=>{
     const VideogameDetail=useSelector(state=>state.VideogameDetail)
@@ -19,8 +20,30 @@ export const Detail=(props)=>{
         })
     },[])
 
-    // console.log(VideogameDetail)
-
+    const titleConatinerWidth=(name)=>{
+        if(name.length>15){
+            return '30%'
+        }else{
+            const le=(name.length*2)-4
+            return  '28%'
+        }
+    }
+    const titleConatinerLength=(name)=>{
+        if(name.length<10){
+            return '10%'
+        }
+        if(name.length>20){
+            return '30%'
+        }
+        if(name.length>10){
+            return '20%'
+        }
+    }
+    console.log(genresIcons(1))
+    const platConatinerLength=(platforms)=>{
+        const le=(platforms.length+1)*4
+        return le.toString()+'%'
+    }
     return(
         <div className="videogameDetail">
             {props.version===2?(
@@ -30,7 +53,7 @@ export const Detail=(props)=>{
                                         style={{backgroundImage: `url(${props.VideogameDetail.background_image && props.VideogameDetail.background_image})`
                                         ,height:`${props.version===2?'42vh':'100vh' }`}}>
 
-                                    {props.version!==2 &&(<div><Nav/></div>)}
+                                
                                     <h2>{props.VideogameDetail.name}</h2>
                                     <span>{props.VideogameDetail.rating}</span>
                                     <span>{props.VideogameDetail.released}</span>
@@ -63,27 +86,61 @@ export const Detail=(props)=>{
                             <Loading typeLoader={3}/>
                         </div>):(
                         
-                        <div>
+                        <div>   
+                                
                                 <div className="backImg firstPage"
                                         style={{backgroundImage: `url(${VideogameDetail.background_image && VideogameDetail.background_image})`
                                         ,height:`${props.version===2?'30vh':'100vh' }`}}>
+                                     
+                                     <div className="detLeftSide">
+                                     <Link to='/home'>
+                                    <div className="btnContDetail">
+                                        <button className="goBackHome">                                            
+                                        </button>
+                                    </div>
+                                   </Link>
+                                   <div className="detailGameTitle"
+                                        style={{width:`${VideogameDetail.name && titleConatinerWidth(VideogameDetail.name)}`, height:`${VideogameDetail.name && titleConatinerLength(VideogameDetail.name)}`}}
+                                    >
+                                     <h2 >{VideogameDetail.name}</h2>
 
-                                    {props.version!==2 &&(<div><Nav/></div>)}
-                                    <h2>{VideogameDetail.name}</h2>
-                                    <span>{VideogameDetail.rating}</span>
-                                    <span>{VideogameDetail.released}</span>
-                                    {VideogameDetail.platforms?.map((p)=>(
-                                        <div>
-                                            {p}
-                                        </div>
+                                   </div>
+                                    
+                                    <div className="detailPlatCont" 
+                                    style={{height:`${VideogameDetail.platforms && platConatinerLength(VideogameDetail.platforms)}`}}
+                                    >
+                                        <div className="detPlatformIcon"></div>
+                                        <div className="detPlatNa">
+                                            PLATFORMS:
+                                        {VideogameDetail.platforms?.map((p,i)=>(
+                                            <div key={i}>
+                                                {p}
+                                            </div>
                                     ))}
-
-                                    {VideogameDetail.genres?.map((p)=>(
-                                        <div>
-                                            {p.name}
                                         </div>
-                                    ))}
+                                    </div>
+                                    
 
+                                    <div className="releasedDetCont">
+                                        <div className="detReleaseDate">{VideogameDetail.released}</div>
+                                    </div>
+
+                                    <div className="ratingDetCont">
+                                        <div className="starspining"></div>
+                                        <span className="ratingNumbDe">
+                                            {VideogameDetail.rating}
+                                        </span>
+                                    </div>
+                                    </div>
+                                    <div className="detGenresCont">
+                                        {VideogameDetail.genres?.map((p,i)=>(
+                                            <div key={i}
+                                            className='detailGenres'
+                                            >
+                                                {p.name}
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
 
                                 <div className="backImg secondPage"

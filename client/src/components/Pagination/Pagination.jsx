@@ -46,7 +46,7 @@ export const Pagination=(props)=>{
         if(numberPages.length>currentPage){
 
             onClickHandlerPages(currentPage+1)
-            console.log('next')
+            
         }
     }
     return(
@@ -55,7 +55,7 @@ export const Pagination=(props)=>{
                 {currentPage!==1 &&(<button name='prev'
                         className='prevBtn' 
                         onClick={(e)=>prevHandler(e)}
-                        >.</button>)}
+                        >{'<'}</button>)}
                 {numberPages&& numberPages.map((n,i)=>(               
                         <button key={i} name={n} className={`pageBtn ${currentPage===n&&'current'}`} onClick={(e)=>onClickHandlerPages(n)}>
                             {n}
@@ -65,20 +65,20 @@ export const Pagination=(props)=>{
                 {numberPages.length>currentPage&&(<button name='next'
                         className='nextBtn'                     
                         onClick={(e)=>nextHandler(e)}
-                        >.</button>)}
+                        >{'>'}</button>)}
             </div>
             
 
 
             <div className="cards">                        
-                <Cards allVideogames={gamesPerPage} />
+                <Cards allVideogames={gamesPerPage} version={1} />
             </div>
 
             <div className="underBtn">
             {currentPage!==1 &&(<button name='prev'
                         className='prevBtn' 
                         onClick={(e)=>prevHandler(e)}
-                        >.</button>)}
+                        >{'<'}</button>)}
                 {numberPages&& numberPages.map((n,i)=>(               
                         <button key={i} name={n} className={`pageBtn ${currentPage===n&&'current'}`} onClick={(e)=>onClickHandlerPages(n)}>
                             {n}
@@ -88,7 +88,7 @@ export const Pagination=(props)=>{
                 {numberPages.length>currentPage&&(<button name='next'
                         className='nextBtn'                     
                         onClick={(e)=>nextHandler(e)}
-                        >.</button>)}
+                        >{'>'}</button>)}
             </div>
         </div>
     )

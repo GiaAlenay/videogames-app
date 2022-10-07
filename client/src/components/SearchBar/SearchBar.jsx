@@ -59,18 +59,21 @@ export const SearchBar=()=>{
         dispatch(clearAction('VideogamesByName',[]))
     }
     return(
-        <div>
-            <form onSubmit={(e)=>{onSubmitHandler(e)}}>
-                <button type="submit">buscar</button>
+        <div >
+            <form className='searchform' onSubmit={(e)=>{onSubmitHandler(e)}}>
+            <button className='lupa' type="submit">
+                <img className='lupaImg'src={'lupa.png'} alt='search Icon'/>
+            </button>
                 <input type='search'
+                        className="input"
                         onBlur={()=>{ setTimeout(()=>{setSuggestions([])},200)}}
                         onChange={(e)=>{onChangeInput(e.target.value)}}
                         onKeyDown={(e)=>{handleKeyDown(e)}}
                         value={text}
                         />
-                <div className='cont'>{suggestions && suggestions.map((sugName,i)=>(
+                <div className='sugCont'>{suggestions && suggestions.map((sugName,i)=>(
                     <div  key={i} 
-                            id={suggestions.length===i+1 ?'su':undefined}
+                            id={suggestions.length===i+1 ?'su':'else'}
                             className="suggestion"
                             onClick={()=>onSuggestHandler(sugName)}
                         >{sugName}
@@ -91,7 +94,7 @@ export const SearchBar=()=>{
                                 {VideogamesByName.error}
                             </div>):(
                             <div >
-                                <Cards allVideogames={VideogamesByName}/>
+                                <Cards allVideogames={VideogamesByName} version={2}/>
                             </div>)}
                         </div>)}
                     

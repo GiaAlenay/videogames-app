@@ -26,8 +26,10 @@ export const Home=()=>{
                     <Loading typeLoader={1}/>
                 </div>):(
                 <div>
-                    <Nav/>
-                    <SearchBar/>
+                    <Nav on={2}/>
+                    <div className="searchBarhome">
+                        <SearchBar/>
+                    </div>
                     <div className="filter">
                         <Filter allGenres={allGenres}/>
                     </div>

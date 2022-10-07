@@ -221,7 +221,7 @@ const movingPages=(e)=>{
 
     return(
         <div className={`create  `}>
-            <Nav/>
+            <Nav on ={3}/>
             <form className='form' onSubmit={submit}>
                     {current===0 &&(
                 <div className={`formCreateVideogame0 ${animation===true && 'animate_content'} ${fadein===true && 'fade'}`} >   

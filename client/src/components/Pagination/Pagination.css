@@ -1,0 +1,63 @@
+.upperBtn{
+    margin-top: 4%;
+    margin-bottom: 2%;
+}
+.underBtn{
+    margin-top: 3%;
+    margin-bottom: 5%;
+    margin-left: 15% ;
+}
+
+
+    
+.pageBtn , .prevBtn ,.nextBtn{    
+    all:unset;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    margin: 0% 1% 0% 0%;
+    background-color: rgb(255, 255, 255,0.2);
+    border-color: #67e9ee;
+    border-width: 1px;
+    border-style: solid;
+    box-shadow: 0 0 .1rem #fff,
+            0 0 .1rem #fff,
+            0 0 1rem #67e9ee,
+            0 0 0.2rem #67e9ee,
+            0 0 0.2rem #67e9ee,
+            inset 0 0 0.4rem #67e9ee; 
+    -webkit-text-stroke: 0.3px white;
+    color: transparent;
+    font-size: 20px;
+}
+.current{    
+    width: 50px;
+    height: 50px;
+    border-width: 6px;
+    border-style: double;
+    box-shadow: 0 0 .1rem #fff,
+            0 0 .1rem #fff,
+            0 0 1rem #67e9ee,
+            0 0 0.2rem #67e9ee,
+            0 0 0.2rem #67e9ee,
+            inset 0 0 0.4rem #67e9ee; 
+    
+}
+.pageBtn:hover , .prevBtn:hover ,.nextBtn:hover{
+    border-width: 6px;
+    border-style: double;
+    box-shadow: 0 0 .1rem #fff,
+            0 0 .1rem #fff,
+            0 0 1rem #67e9ee,
+            0 0 0.2rem #67e9ee,
+            0 0 0.2rem #67e9ee,
+            inset 0 0 0.4rem #67e9ee; 
+}
+.nextBtn{
+    border-radius: 0px 45px 45px 0px;
+}
+
+.prevBtn{
+    border-radius: 45px 0px 0px 45px;
+}

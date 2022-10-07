@@ -71,9 +71,10 @@ export const Filter=(props)=>{
     return(
         <div className="filterComp">
             <div>
-                <h2>Filter</h2>
+                <h2 className="filterTi">Filter</h2>
                 <fieldset className="genresCheckBox">
                     <legend>by genre</legend>
+                    <div className="checkboxesfilt">
                     <input type='checkbox'
                                 id={20} 
                                 name='all'
@@ -93,7 +94,7 @@ export const Filter=(props)=>{
                                     onClick={genresCheckbox}
                            />{g.name}
                         </div>))}
-                        
+                    </div>   
                 </fieldset>
 
                 <fieldset>
@@ -126,7 +127,7 @@ export const Filter=(props)=>{
                 </fieldset>
             </div>
             <div>
-                <h2>Order</h2>
+                <h2 className="filterTi">Order</h2>
                 <fieldset>
                     <legend>by name</legend>
                     <div className="order">

@@ -15,9 +15,124 @@
 }
 
 .backImg{
-    overflow:auto;
-    
+    overflow:auto;    
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.arrowDetail{
+    width: 100%;
+    background-color: aliceblue;
+    filter: grayscale(100%);
+    filter:brightness(0.8);
+}
+.goBackHome{
+    all:unset;
+   background-image: url('img/goBack.png');
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 36px 36px;
+   border: 1.9px solid white ;
+   cursor: pointer;
+    margin: 2%;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: rgb(110, 103, 103,0.3);
+    filter:brightness(0.6);
+}
+.btnContDetail{     
+    width: 10%;
+    align-items: left;
+    
+}
+
+.goBackHome:hover{
+    filter: none;
+
+}
+
+.detailGameTitle{
+   
+    text-align: center;
+    vertical-align: middle;
+    text-shadow: 5px 5px #111111;
+    text-transform: uppercase;
+   font-size: 200%;
+    background-image: url('./img/titleContainer.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+.detailPlatCont{
+    width: 27%;
+    height: 20%;
+    background-image: url('./img/platformsCont.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+.detPlatformIcon{
+    margin-left: 50%;
+    background-image: url('./img/platformsIcon.png');
+    background-repeat: no-repeat;
+    background-size: 80% 70%;
+}
+.detPlatNa{
+    margin-top: 4%;
+    text-align: left;
+}
+.releasedDetCont{
+    width: 18%;
+    height: 6%;
+    background-image: url('./img/platformsCont.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: grid;
+    vertical-align: middle;
+    font-size: 120%;
+}
+.ratingDetCont{
+    width: 19%;
+    height: 18%;
+    
+}
+.starspining{
+    margin-left: 30%;
+    width: 50%;
+    height: 70%;
+    filter: drop-shadow(10px 5px 4px #1b1b1b);
+    background-image: url('./img/star.gif');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+}
+.ratingNumbDe{
+    background: linear-gradient(to bottom, #cfc09f 22%,#634f2c 24%, #cfc09f 26%, #cfc09f 27%,#ffecb3 40%,#3a2c0f 78%); 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #fff;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    position: relative;
+	text-transform: uppercase;		
+	margin: 0;
+	font-weight: bold;
+    
+    font-size: 250%;
+   
+}
+
+
+.firstPage{
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
+.detailGenres{
+    
+    width: 90%;
+    height: 20%;
+    background-repeat: no-repeat;
+    background-size: 50% 50%;
 }

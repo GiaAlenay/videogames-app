@@ -4,7 +4,7 @@ import './Cards.css'
 export const Cards=(props)=>{
     //console.log(props.allVideogames)
     return(
-        <div> 
+        <div className={`allCards${props.version}`}> 
             <ul className="cards">
                 {props.allVideogames?.map((v,i)=>(
                     <div key={v.id}>

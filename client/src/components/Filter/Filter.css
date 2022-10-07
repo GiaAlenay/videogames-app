@@ -1,13 +1,20 @@
 .filterComp{
     margin-left: 15%;
     width: 100%;
-    background-color: rgba(19, 18, 18, 0.2);
+    background-color: rgba(12, 180, 209, 0.05);
     backdrop-filter: blur(5px);
-    padding: 2%;
+    padding: 0% 8% 8% 8%;
+    border-radius: 35px;
+    margin-bottom: 15%;
 }
-.genresCheckBox {
-    
+
+.checkboxesfilt{
     display: grid;
     grid-template-columns: repeat(2, 110px);
     text-align: left;
+}
+.filterTi{
+    font-size: 30px;
+    color: transparent;
+    -webkit-text-stroke: 0.5px  white;
 }
