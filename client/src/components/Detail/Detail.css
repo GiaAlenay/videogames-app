@@ -125,14 +125,162 @@
 
 
 .firstPage{
+    
     display: grid;
     grid-template-columns: 80% 20%;
 }
 
-.detailGenres{
-    
+.detailGen{
+    margin-top: 1%;
     width: 90%;
-    height: 20%;
+    height: 20%; 
+}
+.deNameGenre{
+    -webkit-text-stroke: 0.5px black;
+    font-size: 12px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.deGenreNameContainer{
+    backdrop-filter: blur(25px);
+    border-right: 3px solid rgb(214, 204, 204);
+    border-top: 3px solid rgb(214, 204, 204);
+    border-bottom: 3px solid rgb(214, 204, 204);
+    width:50%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0px 15px 15px 0px;
+    margin-right: 0%;
+    margin-top: 8%;
+    margin-left: 30%;
+    position: absolute;
+    
+}
+.deGenres{
+    
+    width: 100%;
+    height: 18%;
+    position: relative
+}
+.deRombo{
+    backdrop-filter: blur(25px);
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 15px 30px 15px 30px;
+    width: 22%; 
+    height: 50%; 
+    border: 3px solid rgb(214, 204, 204);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+}
+
+.detailGenIcon{    
+    width: 100%;
+    height: 100%;
     background-repeat: no-repeat;
-    background-size: 50% 50%;
+    background-size: 80% 80%;
+    background-position: center;
+    transform: rotate(-45deg);
+    display: grid;
+    align-items: center;
+    vertical-align: middle;
+}
+.deGenBack1{
+    background-image: url('./img/action.png');
+}
+.deGenBack2{
+    background-image: url('./img/indie.png');
+}
+.deGenBack3{
+    background-image: url('./img/adventure.png');
+}
+.deGenBack4{
+    background-image: url('./img/RPG.png');
+}
+.deGenBack5{
+    background-image: url('./img/strategy.png');
+}
+.deGenBack6{
+    background-image: url('./img/shooter.png');
+}
+.deGenBack7{
+    background-image: url('./img/casual.png');
+}
+.deGenBack8{
+    background-image: url('./img/simulation.png');
+}
+.deGenBack9{
+    background-image: url('./img/puzzle.png');
+}
+.deGenBack10{
+    background-image: url('./img/arcade.png');
+}
+.deGenBack11{
+    background-image: url('./img/platformer.png');
+}
+.deGenBack12{
+    background-image: url('./img/racing.png');
+}
+.deGenBack13{
+    background-image: url('./img/massivelyMultiplayer.png');
+}
+.deGenBack14{
+    background-image: url('./img/sports.png');
+}
+.deGenBack15{
+    background-image: url('./img/fighting.png');
+}
+.deGenBack16{
+    background-image: url('./img/family.png');
+}
+.deGenBack17{
+    background-image: url('./img/boardGames.png');
+}
+.deGenBack18{
+    background-image: url('./img/educational.png');
+}
+.deGenBack19{
+    background-image: url('./img/card.png');
+}
+
+.deDescripCont{
+    padding-top: 5%;
+    margin-left: 59%;
+    margin-top: 5%;
+    width: 53%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 80% 80%;
+    background-image: url('./img/descriptionCont.png');
+    
+}
+.secondPage{
+    overflow: hidden;
+}
+
+.textDes{
+    
+    margin-left: 10%;
+    width: 50%;
+}
+.dgtv2{
+    font-size: 10px;
+  }
+.dpv2{
+    font-size: 6px;
+}
+.ddv2{
+    height: 70%;
+}
+.dgn{
+    font-size: 7px;
+}
+.dgnc{
+    margin-left: 60% ;
+    width: 21px;
+    margin-top: 22%;
 }

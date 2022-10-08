@@ -2,10 +2,11 @@ import './Create.css'
 import {Nav} from '../Nav/Nav'
 import {Card} from '../Card/Card'
 import {Detail} from '../Detail/Deatail'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { genresIcons, platformsIcons } from './icons';
 import {getGenresAction ,getAllIdAction,getAllNamesAction} from '../../redux/actions/index'
+
 const axios = require('axios')
 
 function Validate(input,target,allName,allID){
@@ -133,43 +134,22 @@ export const Create=()=>{
 
     }
 
-//    const obj={name:"DojaMau",  id:3 ,description:"ttutrvdfhs", platforms:["a","b"],
-         
-          
-//    genres:[2,18,19] }
+
  const backgroundChange=()=>{
     if(back1n2===''){setBack1n2(input.background_image)}
     if(back1n2===input.background_image){
         setTimeout(function(){setBack1n2(input.background_image_additional)},3000)
     }
     else{
-        setTimeout(function(){setBack1n2(input.background_image)},3000)
-    }
+        setTimeout(function(){setBack1n2(input.background_image)},3000)    }
     
     return back1n2
     
  }
 const changePagesHandler=(e)=>{
-    // setTimeout(function() {
-    //     setFadein(true)
-    //   }, 1500);
-
-    // setAnimation(true)
-
-    // setVisible(false)
-
-    setcurrent(parseInt(e.target.name,10))
-    
-    // setTimeout(function(){
-    //     setVisible(true)
-    // },2800)
-    // setTimeout(function() {
-    //     setAnimation(false);
-    //   }, 3000);
-    // setTimeout(function() {
-    //    setFadein(false);
-    //   }, 1500);
+    setcurrent(parseInt(e.target.name,10))    
 }
+
 const movingPages=(e)=>{
     setTimeout(function() {
         setFadein(true)
@@ -177,29 +157,41 @@ const movingPages=(e)=>{
     setAnimation(true)
     setVisible(false)
     
-    
+    if(e.target.name==='begining'){
+        setTimeout(function(){
+            setcurrent(0)
+        },2600)
+        
+    }
     
     if(e.target.name==='prev' ){
-        if(current!==1){
-            setcurrent(current-1)
-        }
-    }
-    if(e.target.name==='next' || e.target.name==='start' ){
-        if(current<8){
-            setcurrent(current+1)
-
+        if(current!==0){
             setTimeout(function(){
-                setVisible(true)
-            },2800)
-            setTimeout(function() {
-                setAnimation(false);
-              }, 3000);
-            setTimeout(function() {
-               setFadein(false);
-              }, 1500);
+                setcurrent(current-1)
+            },2600)
+        
         }
     }
-   
+    if( e.target.name==='start' ){        
+            setTimeout(function(){
+                setcurrent(current+1)
+            },3000)           
+               
+    }
+    if(e.target.name==='next' ){
+            setTimeout(function(){
+                setcurrent(current+1)
+            },2500)           
+    }
+    setTimeout(function(){
+        setVisible(true)
+    },2800)
+    setTimeout(function() {
+        setAnimation(false);
+      }, 3000);
+    setTimeout(function() {
+       setFadein(false);
+      }, 1500);
 }
 
     const submit = async (e) => {
@@ -221,7 +213,17 @@ const movingPages=(e)=>{
 
     return(
         <div className={`create  `}>
-            <Nav on ={3}/>
+            {current===0 && <Nav on ={3}/>}
+            {current !==0 && current!==7&&(
+                <div className='creBtnsBaCont'>
+                    <div className='creBtnBackCont'>
+                        <button className='creBtnBack'
+                                type='button'
+                                name='begining'
+                                onClick={(e)=>{movingPages(e)}}
+                        ></button>
+                    </div>
+                </div>)}
             <form className='form' onSubmit={submit}>
                     {current===0 &&(
                 <div className={`formCreateVideogame0 ${animation===true && 'animate_content'} ${fadein===true && 'fade'}`} >   
@@ -249,7 +251,7 @@ const movingPages=(e)=>{
 
                 
                 <div className={`containerntnandForm ${animation===true && 'animate_content'} ${fadein===true && 'fade'}`}>
-                    
+                     
                     <div className='currentpagesNumbers containerleftPag'>
                         <div className='currentNumberPage'>
                                 <button className='btnNumberPageCreate'
@@ -481,8 +483,8 @@ const movingPages=(e)=>{
                                         <button type='button'
                                                 onClick={(e)=>{movingPages(e)}}
                                                 name='next'
-                                                className='nextCreate'>
-                                            {'>>>'}
+                                                className='nextCreat'>
+                                           
                                         </button>        
                                     </div>
                                 </div>
@@ -516,7 +518,18 @@ const movingPages=(e)=>{
                     <div className={`containerlastcreatesteps ${animation===true && 'animate_content'} ${fadein===true && 'fade'}`}>
                     {current===7 &&(
                                 <div className={`currentCreatePagLast ${visible  ?'fadeIn':'fadeOut'}`}>
+                                    
+
                                     <div className='preview'>
+                                    <div className='creBtnsBaCont cbbcf'>
+                                        <div className='creBtnBackCont'>
+                                            <button className='creBtnBack cbbf'
+                                                 type='button'
+                                                name='prev'
+                                                onClick={(e)=>{movingPages(e)}}
+                                            ></button>
+                                        </div>
+                                    </div>
                                         <div className='left lp7'>
                                             <Card
                                                 version={2}
@@ -527,12 +540,12 @@ const movingPages=(e)=>{
                                                 genres={genresObj}
                                                 />
                                         </div>
-                                        <div className='rigth'>
+                                        <div className='rigth rp7' >
                                             <Detail version={2} VideogameDetail={input} genres={genresObj}/>
                                         </div>
                                     </div>
 
-                                    <div className="btnCreate">
+                                    <div className="btnCreateCont">
                                         <button className="btnCreatFinal" type="submit" >CREATE</button>
                                     </div>
                                 </div>

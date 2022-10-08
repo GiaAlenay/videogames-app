@@ -81,3 +81,49 @@ switch (index) {
         console.log('default')
         break;
 }}
+
+export const genressIconByName=(name)=>{
+    switch (name) {
+        case 'Action':        
+            return 1
+        case "Indie":
+            return 2
+        case "Adventure":
+            return 3
+        case "RPG":
+            return 4
+        case "Strategy":
+            return 5
+        case "Shooter":
+            return 6
+        case "Casual":
+            return 7
+        case "Simulation":
+            return 8
+        case "Puzzle":
+            return 9
+        case "Arcade":
+            return 10
+        case "Platformer":
+            return 11
+        case "Racing":
+            return 12
+        case "Massively Multiplayer":
+            return 13
+        case "Sports":
+            return 14
+        case "Fighting":
+            return 15
+        case "Family":
+            return 16
+        case "Board Games":
+            return 17
+        case "Educational":
+            return 18
+        case "Card":
+            return 19
+        default:
+            console.log('default')
+            break;
+    }
+}
