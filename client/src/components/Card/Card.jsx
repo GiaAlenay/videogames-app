@@ -1,52 +1,33 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import './Card.css'
+import { useHistory } from "react-router-dom"
 export const Card=(props)=>{
-    useEffect(()=>{
-        randomNeon(props.random)
-    },[props.random])
-    const randomNeon=(random)=>{
-        if(random===0){
-            return 'shining0'
-        }
-        if(random<6){
-          return `shining${random}`
-        }
-        if( random%6===0){
-          return 'shining0'
-        }
-        if((random-1)%6===0){
-          return 'shining1'
-        }
-        if( (random-2)%6===0){
-          return 'shining2'
-        }
-        if( (random-3)%6===0){
-          return 'shining3'
-        }
-        if((random-4)%6===0){
-          return 'shining4'
-        }
-        if( (random-5)%6===0){
-          return 'shining5'
-        }
-      }
+  let history = useHistory();
+  const [chosen,setChosen]=useState(false)
+   const handleLinkClick=()=>{
+    setChosen(true)
+    setTimeout(()=>{history.push(`/videogames/${props.id}`)},3000)
+    
+   }
+    
     return(
-      <div className={!props.version&&'try'}>
-        <div class= {`container ${props.version===2?'flipinfinite':'fliponhover'}`}>
+      <div className={!props.version && !chosen &&'try'}>
+        <div class= {`container ${props.version===2?'flipinfinite':'fliponhover'} ${chosen && 'flipChosen'}`}>
 
-                    <div class={` card ${props.version===2?'front':'back'} `}>
-                    {/* ${props.random?randomNeon(props.random):'createNeon'} */}
+                    <div className={` card ${props.version===2?'front':'back'} `}>
+                   
                     {props.version===2?(
                                  <div>
                                     <img className="backgroundImageCard" src={props.background_image} alt={props.name}/>
 
                                  </div>
                             ):(
-                                <Link to ={`/videogames/${props.id}`}>
-                                    <img className="backgroundImageCard" src={props.background_image} alt={props.name}/>
+                                <button className="backGroundCrdButton" onClick={handleLinkClick} >
 
-                                </Link>
+                                    <img className="backgroundImageCardBu" src={props.background_image} alt={props.name}/>
+
+                                </button>
                             )}
                         <div className="CardPropsCont">
 
@@ -71,9 +52,8 @@ export const Card=(props)=>{
                     </div>
 
 
-                <div class={` card ${props.version===2?'back':'front'} `}>
-                {/* ${props.random?randomNeon(props.random):'createNeon'} */}
-                    <img className="backLogo" src='backCard.jpg' alt='logo'/>
+                <div class={` card backV1 ${props.version===2?'back':'front'} `}>               
+                    <img className="backLogo" src='backCard.png' alt='logo'/>
                 </div>
 
         </div>

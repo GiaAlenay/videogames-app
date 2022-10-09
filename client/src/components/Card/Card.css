@@ -4,8 +4,13 @@
     height: 50%;
     border-radius: 15px 15px 0px 0px;
 }
-
+.backgroundImageCardBu{
+    width: 100%;
+    border-radius: 15px 15px 0px 0px;
+    height: 100%;
+}
 .backLogo{
+    margin-top: 10%;
     width: 110px;
     height: auto;
 }
@@ -54,81 +59,14 @@
 .front{
     transform: rotateY(180deg);    
 }
-
-
-.shining5{
-    border-color: #ee1111;
-    border-width: 5px;
-    border-style: solid;
-    box-shadow: 0 0 .1rem #fff,
-            0 0 .1rem #fff,
-            0 0 1rem #b60101,
-            0 0 0.8rem #b60101,
-            0 0 0.8rem #b60101,
-            inset 0 0 1.1rem #b60101; 
-    
-}
-.shining4{
-    border-color: #ee6911;
-    border-width: 5px;
-    border-style: solid;
-    box-shadow: 0 0 .1rem #fff,
-            0 0 .1rem #fff,
-            0 0 1rem #ee6911,
-            0 0 0.8rem #ee6911,
-            0 0 0.8rem #ee6911,
-            inset 0 0 1.1rem #ee6911; 
-    
-}
-.shining3{
-    border-color: #11ee41;
-    border-width: 5px;
-    border-style: solid;
-    box-shadow: 0 0 .1rem #fff,
-            0 0 .1rem #fff,
-            0 0 1rem #11ee41,
-            0 0 0.8rem #11ee41,
-            0 0 0.8rem #11ee41,
-            inset 0 0 1.1rem #11ee41; 
-    
-}
-.shining2{
-    border-color: #d8ee11;
-    border-width: 5px;
-    border-style: solid;
-    box-shadow: 0 0 .1rem #fff,
-            0 0 .1rem #fff,
-            0 0 1rem #d8ee11,
-            0 0 0.8rem #d8ee11,
-            0 0 0.8rem #d8ee11,
-            inset 0 0 1.1rem #d8ee11; 
-    
+.backGroundCrdButton{
+    all:unset;
+    cursor: pointer;
+    width: 100%;
+    height: 50%;
 }
 
-.shining1{
-    border-color: #67e9ee;
-    border-width: 5px;
-    border-style: solid;
-    box-shadow: 0 0 .1rem #fff,
-            0 0 .1rem #fff,
-            0 0 1rem #67e9ee,
-            0 0 0.8rem #67e9ee,
-            0 0 0.8rem #67e9ee,
-            inset 0 0 1.1rem #67e9ee; 
-    
-}
 
-.shining0{
-    border-color: #9e10d6;
-    border-width: 5px;
-    border-style: solid;
-    box-shadow: 0 0 .1rem #fff,
-            0 0 .1rem #fff,
-            0 0 1rem #bc13fe,
-            0 0 0.8rem #bc13fe,
-            0 0 0.8rem #bc13fe,
-            inset 0 0 1.1rem #bc13fe; 
-}
 
 .createNeon{
     border-color: #9e10d6;
@@ -154,14 +92,21 @@
     animation: flipY 9s infinite;
 }
 
-
+.flipChosen{
+    animation: flipY 2s infinite;
+}
 
 .fliponhover:hover{
-    border-radius: 15px;
-            box-shadow: 0 0 2px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff,
-            0 0 40px #fff, 0 0 50px #fff;
-          -webkit-animation: blink 0.7s infinite alternate;
-          animation: blink 0.7s infinite alternate;
+   
+          border-color: #67e9ee;
+          border-width: 5px;
+          border-style: solid;
+          box-shadow: 0 0 .1rem #fff,
+                  0 0 .1rem #fff,
+                  0 0 1rem #67e9ee,
+                  0 0 0.8rem #67e9ee,
+                  0 0 0.8rem #67e9ee,
+                  inset 0 0 1.1rem #67e9ee; 
 }    
 
 @keyframes blink {
@@ -234,3 +179,4 @@
     position: relative;
     
 }
+

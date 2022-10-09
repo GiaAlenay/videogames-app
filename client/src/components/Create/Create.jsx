@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { genresIcons, platformsIcons } from './icons';
 import {getGenresAction ,getAllIdAction,getAllNamesAction} from '../../redux/actions/index'
+import { useHistory } from 'react-router-dom'
 
 const axios = require('axios')
 
@@ -32,13 +33,14 @@ function Validate(input,target,allName,allID){
 }
 export const Create=()=>{
     const dispatch= useDispatch()
+    const history=useHistory()
     const allGenres=useSelector(state=>state.allGenres)
     //const allVideogamesName=useSelector(state=>state.allVideogamesName)
     //const allVideogamesId=useSelector(state=>state.allVideogamesId)
     const [animation, setAnimation]=useState(false)
     const [fadein, setFadein]=useState(false)   
     const [visible, setVisible]=useState(true)
-
+    const [result , setResult]=useState('')
     
     const[errors, setErrors]=useState({})
     const[input,setinput]=useState({        name:'',
@@ -65,7 +67,7 @@ export const Create=()=>{
     const defaultImg='https://www.pngkey.com/png/full/909-9099235_camera-icon-neg-circle.png'
     const pagesleft=[2,3]
     const pagesRigth=[4,5,6]
-    
+    let comprobar=''
     useEffect(()=>{
         
         dispatch(getGenresAction())
@@ -196,25 +198,44 @@ const movingPages=(e)=>{
 
     const submit = async (e) => {
         e.preventDefault()
+        setResult('waiting')
+        //  comprobar = await axios.post('http://localhost:3001/videogames', input)
+        //  .then(d=> 
+        //     {   setResult('success')
+        //         return "Videogame created successfully."})
+        //  .catch(e=> {setResult('fail')
+        //     return "we could not complete your request , try again later :("})
+            // alert(comprobar)
+
+        setTimeout(()=>{
+            setResult('success')
+            setcurrent(8)
+        },3000)
         
-         const comprobar = await axios.post('http://localhost:3001/videogames', input)
-         .then(d=> 
-            {   console.log(d)
-                return "Videogame created successfully."})
-         .catch(e=> {console.log(e)
-            return "we could not complete your request , try again later :("})
-            alert(comprobar)
         
         
-        window.location.reload()
         
     }
+const acceptResult=(e)=>{
 
+    if(e.target.name==='yes'){
+
+        history.push('/create')
+        setcurrent(0)
+    }
+    else{
+        history.push('/home')
+    }
+}
 
     return(
         <div className={`create  `}>
+            <div className={`${result==='waiting' ?'loaderCreate':'noLoader'}`}>
+                <span className={`${result==='waiting' ?'loaderCre':'noLoaderCre'}`}></span>
+            </div>
             {current===0 && <Nav on ={3}/>}
-            {current !==0 && current!==7&&(
+
+            {current !==0 && current<7&&(
                 <div className='creBtnsBaCont'>
                     <div className='creBtnBackCont'>
                         <button className='creBtnBack'
@@ -514,9 +535,9 @@ const movingPages=(e)=>{
                      </div>   
                 </div> 
                 )}
-                {current>6  &&(
+                {current===7  &&(
                     <div className={`containerlastcreatesteps ${animation===true && 'animate_content'} ${fadein===true && 'fade'}`}>
-                    {current===7 &&(
+                    
                                 <div className={`currentCreatePagLast ${visible  ?'fadeIn':'fadeOut'}`}>
                                     
 
@@ -548,21 +569,59 @@ const movingPages=(e)=>{
                                     <div className="btnCreateCont">
                                         <button className="btnCreatFinal" type="submit" >CREATE</button>
                                     </div>
-                                </div>
-                            )}
-
-                    {current===8 &&(
-                                <div className="currentCreatePag">
-                                    <div className='left'>
-
+                                    <div>
+                                        <div class="lds-hourglass"></div>
                                     </div>
-                                    <div className='rigth'>
-                                        
-                                    </div>
+
                                 </div>
-                            )}  
+                                
+                            
+
+                    
                 </div>)}
-
+                {current===8  &&(
+                    <div className={`containercreResult ${animation===true && 'animate_content'} ${fadein===true && 'fade'}`}>
+                    
+                    {result==='fail' &&(
+                                <div className={`CreatePagResultFail cpr`}>
+                                    <div className='failCont'>
+                                        <img src='go.png' className='failI' alt='game over'/>
+                                        <img src='gameOver.png' className='failL' alt='game over'/>
+                                    </div>
+                                    <h2 className='comprobarRe'>{comprobar}</h2>
+                                    <h2 className='playAgain pago'>PLAY AGAIN?</h2>
+                                    <div className='ynbtnCont'>
+                                        <button className='btnYN btnYNgo '
+                                                type='button'
+                                                onClick={(e)=>{acceptResult(e)}}
+                                                name='yes'>YES</button>
+                                        <button className='btnYN btnYNgo'
+                                                type='button'
+                                                onClick={(e)=>{acceptResult(e)}}
+                                                name='no'>NO</button>
+                                    </div>
+                                </div>
+                            )} 
+                    {result==='success' &&(
+                                <div className={`CreatePagResultSuccess cpr`}>
+                                    <div className='winnerCont'>
+                                        <img src='win.png' className='winner' alt='winner'/>
+                                    </div>
+                                    <h2 className='comprobarRe'>{comprobar}Videogame created successfully.</h2>
+                                    <h2 className='playAgain'>PLAY AGAIN?</h2>
+                                    <div className='ynbtnCont'>
+                                        <button className='btnYN btnyes'
+                                                type='button'
+                                                onClick={(e)=>{acceptResult(e)}}
+                                                name='yes'>YES</button>
+                                        <button className='btnYN btnno'
+                                                type='button'
+                                                onClick={(e)=>{acceptResult(e)}}
+                                                name='no'>NO</button>
+                                    </div>
+                                </div>
+                            )}   
+                </div>)}               
 
 
 

@@ -68,5 +68,6 @@
 }
 
 .suggestion:hover{
+    color: wheat;
     background-color: rgba(99, 96, 96, 0.25);
 }

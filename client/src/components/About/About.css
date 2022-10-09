@@ -7,7 +7,8 @@
     height: 100vh;
     overflow:auto;
     width: 100%;
-    
+    color:wheat;
+    font-family:'Courier New', Courier, monospace;
 }
 .aboutCont{
     margin-top: 3%;
@@ -41,18 +42,18 @@ transform: scale(1,1) translate(0px, -8px);
 transform: scale(1,1) translate(0px, 0px);
 }}
 .photCont{
+    filter:brightness(0.8);
     background-image: url('./img/myPhoto.png');
     background-repeat: no-repeat;
     background-size: 80% 80%;
     background-position: center;
-    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 1));
+    filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 1));
 }
 .authorCont{
-    
-    font-size: 20px;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    padding-top: 1%;
-    color: beige;
+    filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 1));
+    filter:brightness(0.8);
+    font-size: 20px;    
+     padding-top: 1%;    
     margin-left: 15%;
     font-weight: bold;
     width: 66% ;
@@ -67,6 +68,15 @@ transform: scale(1,1) translate(0px, 0px);
     width: 70%;
 }
 .linkCont{
+    border-color: #cfcecf;
+    border-width: 6px;
+    border-style: double;
+    box-shadow: 0 0 .1rem #fff,
+            0 0 .1rem #fff,
+            0 0 1rem #cfcecf,
+            0 0 0.2rem #cfcecf,
+            0 0 0.2rem #cfcecf,
+            inset 0 0 0.4rem #cfcecf; 
     display: grid;
     vertical-align: middle;
     text-align: center;
@@ -79,9 +89,13 @@ transform: scale(1,1) translate(0px, 0px);
     height: 60%;
 }
 .linkedin{
+    filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 1));
+    filter:brightness(0.8);
     width: 85%;
 }
 .linkBehind{
+    filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 1));
+    filter:brightness(0.8);
     display: grid;
     vertical-align: middle;
     text-align: center;
@@ -94,3 +108,67 @@ transform: scale(1,1) translate(0px, 0px);
 }
 
 
+.hexagon {
+    margin-top: 0%;
+    width: 80px;
+    height: 80px;
+    display: grid;
+    align-items: center;
+    vertical-align: middle;
+    background-image: url('./img/hexagon.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    filter:brightness(0.8);
+    filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 1));
+   }
+
+
+.iconsAbout{
+    width: 50%;
+    height: 50%;
+}
+
+.aboutrow{
+    margin-left: 15%;
+    display: grid;
+    grid-template-columns: repeat(2 , 90px);
+}
+.aboutMirow{
+    margin-left: 6%;
+    display: grid;
+    grid-template-columns: repeat(3 , 90px); 
+}
+
+.apiHolder{
+    filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 1));
+    filter:brightness(0.8);
+    margin-top: 5%;
+    padding-top: 2%;
+    background-image: url('./img/apiHolder.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 80%;
+    height: 17%;
+   -webkit-text-stroke: 0.5px black;
+}
+.ApiAbout{
+    -webkit-text-stroke: 0.5px black;    
+    font-size: 18px;
+   color: bisque; 
+   font-weight: bold;
+}
+.proyectDesCont{
+    padding: 4%;
+    margin-top: 4%;
+    width: 70%;
+    height: 15%;
+    background-image: url('./img/proyectDescriptionCont.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    filter:brightness(0.8);
+    background-color: rgb(5, 5, 5,0.9);
+}
+.henryLogo{
+    width: 35%;
+    height: auto;
+}
