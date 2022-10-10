@@ -93,6 +93,15 @@
 }
 
 .flipChosen{
+    border-color: #67e9ee;
+          border-width: 5px;
+          border-style: solid;
+          box-shadow: 0 0 .1rem #fff,
+                  0 0 .1rem #fff,
+                  0 0 1rem #67e9ee,
+                  0 0 0.8rem #67e9ee,
+                  0 0 0.8rem #67e9ee,
+                  inset 0 0 1.1rem #67e9ee; 
     animation: flipY 2s infinite;
 }
 

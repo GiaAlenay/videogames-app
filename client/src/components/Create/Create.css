@@ -388,6 +388,7 @@
 }
 
 .qp3{
+    height: 40%;
     font-size: 45px;    
     margin-left: 5%;
     text-align: left;
@@ -402,7 +403,7 @@
     background-color: rgb(255, 250, 250 ,0.4) ;
     color: black;
     width: 100%;
-    height: 100%;
+    height: 80%;
 }
 
 
@@ -645,6 +646,9 @@
     height:  17%;
 
 }
+.notNextCreat{
+    display: none;
+}
 
 .displayblock{
     width: 40%;
@@ -880,52 +884,33 @@
     display: none;
 }
 .loaderCre {
-   
-    width: 16px;
-    height: 16px;
-    box-shadow: 0 30px, 0 -30px;
-    border-radius: 4px;
-    background: currentColor;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
     display: block;
-    margin: -50px auto 0;
+    margin:15px auto;
+    /* margin-left: 45%; */
     position: relative;
+    background: #56036b;
     color: #FFF;
-    transform: translateY(30px);
+    box-shadow: -24px 0, 24px 0;
     box-sizing: border-box;
-    animation: animloader 2s ease infinite;
-  }
-  .loaderCre::after,
-  .loaderCre::before {
-    content: '';  
-    box-sizing: border-box;
-    width: 16px;
-    height: 16px;
-    box-shadow: 0 30px, 0 -30px;
-    border-radius: 4px;
-    background: currentColor;
-    color: #FFF;
-    position: absolute;
-    left: 30px;
-    top: 0;
-    animation: animloader 2s 0.2s ease infinite;
-  }
-  .loaderCre::before {
-    animation-delay: 0.4s;
-    left: 60px;
+    animation: rotation 2s ease-in-out infinite;
   }
   
-  @keyframes animloader {
+  @keyframes rotation {
     0% {
-      top: 0;
-      color: white;
-    }
-    50% {
-      top: 30px;
-      color: rgba(255, 255, 255, 0.2);
+      transform: rotate(0deg);
     }
     100% {
-      top: 0;
-      color: white;
+      transform: rotate(360deg);
     }
-  }
-      
+  } 
+  .crF{
+    font-size: 25px;
+   
+}
+.danger{
+    font-size: 11px;
+    color: white;
+}

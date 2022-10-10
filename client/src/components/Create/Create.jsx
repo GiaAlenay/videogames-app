@@ -13,30 +13,68 @@ const axios = require('axios')
 function Validate(input,target,allName,allID){
     let errors={};
     
-    if(target==='name'){
-        console.log('na'+target)
+    if(target==='name' || target==='id'){
+        const foundName=allName.find(f=>f.toLowerCase()===input.name.toLowerCase())
+        const foundId=allID.find(f=>f===input.id)
+
         if(!input.name){errors.name='Name is required'}
-        if(input.name.length>12){errors.name='Name is too long'}
-    }
-    if(target==='id'){
-        console.log('id' +target)
-        
+        if(input.name.length>50){errors.name='Name is too long'}
+        if(foundName){errors.name='Name already exists'}
+      
         if(!input.id){errors.id='Id is required'} 
-        //if(foundId){errors.id='Id already exists'}
+        if(foundId){errors.id='Id already exists'}
         if(input.id<0){errors.id='Id can not be a negative number'}
+        return errors
     }
-    if(target==='description'){
-        console.log('des '+target)
-        if(!input.description){errors.description='Description is required'}
+    if(target==='background_image'|| target==='background_image_additional'){
+       if(!input.background_image.match(/\.(jpeg|jpg|gif|png)$/)){errors.background_image='Url not valid'}
+       if(!input.background_image_additional.match(/\.(jpeg|jpg|gif|png)$/)){errors.background_image_additional='Url not valid'}
+       return errors
     }
-    return errors
+
+ if(target==='description'){
+        if(input.description.length===0){errors.description='Please enter a description.'}
+        return errors
+    }
+    
+    // if(target==='genres'){   
+          
+    //     if(input.length===0){
+    //         console.log('vacio')  
+    //         errors.genres='Please choose at least one genre.'
+    //     }else{
+    //         console.log('lleno')  
+    //     }
+    //     return errors
+    // }
+    // if(target==='platforms'){
+    //     if (input.platforms.length===0){errors.platforms='Please choose at least one platform'}
+    //     return errors
+    // }
+    if(target==='rating'|| target==='released'){
+        const array=input.released.split('-')
+        let today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear().toString();;
+
+        if (input.rating>5){errors.rating='Rating can not be more than 5 points'}
+        if (input.rating<0){errors.rating='Rating can not be less than 0 points'}
+        if(input.rating.toString().length>4){errors.rating='Rating can only have two decimals'}
+        
+
+        if(array[0]>yyyy){errors.released='Released date can only be before today.'}
+        if(array[0]===yyyy && array[1]>mm){errors.released='Released date can only be before today.'}
+        if(array[0]===yyyy && array[1]===mm && array[2]>=dd){errors.released='Released date can only be before today.'}
+        return errors
+    }
 }
 export const Create=()=>{
     const dispatch= useDispatch()
     const history=useHistory()
     const allGenres=useSelector(state=>state.allGenres)
-    //const allVideogamesName=useSelector(state=>state.allVideogamesName)
-    //const allVideogamesId=useSelector(state=>state.allVideogamesId)
+    const allVideogamesName=useSelector(state=>state.allVideogamesName)
+    const allVideogamesId=useSelector(state=>state.allVideogamesId)
     const [animation, setAnimation]=useState(false)
     const [fadein, setFadein]=useState(false)   
     const [visible, setVisible]=useState(true)
@@ -57,8 +95,8 @@ export const Create=()=>{
 
     const[back1n2,setBack1n2]=useState('')
     const[genresObj,setGenresObj]=useState([])
-                                     
-
+    const [pagesDone,setPagesDone]=useState([])                                 
+    const[confirmPag,setconfirmPag]=useState()
 
      const platformsApi = [
         "PC", "PlayStation 5", "PlayStation 4", "PlayStation 3", "Xbox One", "Xbox Series S/X", "Xbox 360", "Xbox",
@@ -67,36 +105,60 @@ export const Create=()=>{
     const defaultImg='https://www.pngkey.com/png/full/909-9099235_camera-icon-neg-circle.png'
     const pagesleft=[2,3]
     const pagesRigth=[4,5,6]
-    let comprobar=''
-    useEffect(()=>{
-        
+   const done=[0,1]
+    useEffect(()=>{  
+        setErrors({random:'error random'})      
         dispatch(getGenresAction())
-        //dispatch(getAllIdAction())
-        //dispatch(getAllNamesAction())
-    },[])
+        dispatch(getAllIdAction())
+        dispatch(getAllNamesAction())
+    },[])   
+
+    useEffect(()=>{
+        if(current===4){         
+         if(input.genres.length===0 ){             
+             setErrors({...errors, genres:'Please choose at least one genre'})
+         } if(input.genres.length>0){
+             setErrors({})             
+         }
+        }
+       if(current===5){
+        
+        if(input.platforms.length===0 ){            
+            setErrors({...errors, platforms:'Please choose at least one platform.'})
+        } if(input.platforms.length>0){
+            setErrors({})            
+        }
+       }
+        
+    },[input,current])
+   
     useEffect(()=>{
         backgroundChange()
     },[back1n2, current])
+
     const handleInputChange=(e)=>{
         setinput({...input,
             [e.target.name]:e.target.value })
         setErrors(Validate({...input,
-            [e.target.name]:e.target.value},e.target.name))
+            [e.target.name]:e.target.value},e.target.name,allVideogamesName,allVideogamesId))
     }
+
     const handleInputChangeNumb=(e)=>{
         setinput({...input,
             [e.target.name]:parseInt(e.target.value,10) })
         setErrors(Validate({...input,
-            [e.target.name]:parseInt(e.target.value,10)},e.target.name))
+            [e.target.name]:parseInt(e.target.value,10)},e.target.name,allVideogamesName,allVideogamesId))
     }
+
     const handleInputChangeRa=(e)=>{
         setinput({...input,
             [e.target.name]:parseFloat(e.target.value) })
         setErrors(Validate({...input,
             [e.target.name]:parseFloat(e.target.value)},e.target.name))
     }
-    const Checkbox=function(e){        
-                
+
+    const Checkbox=function(e){                  
+       
         if(e.target.name=== 'genres'){
             if (input.genres.includes(parseInt(e.target.value,10))) {
                 input.genres = input.genres.filter((id) => id !== parseInt(e.target.value,10));            
@@ -111,13 +173,12 @@ export const Create=()=>{
                   ...input,
                   genres: [...input.genres, parseInt(e.target.value,10)],
                 });
+    
                 allGenres.map((g)=>{
                     if(g.id===parseInt(e.target.value,10)){
-                        setGenresObj(oldGenres=>[...oldGenres,g])
-                        
+                        setGenresObj(oldGenres=>[...oldGenres,g])                        
                     }
-                })
-                
+                })                
               }
         }else{
             if (input.platforms.includes(e.target.value)) {
@@ -133,100 +194,119 @@ export const Create=()=>{
                 });
               }
         }
-
-    }
-
-
- const backgroundChange=()=>{
-    if(back1n2===''){setBack1n2(input.background_image)}
-    if(back1n2===input.background_image){
-        setTimeout(function(){setBack1n2(input.background_image_additional)},3000)
-    }
-    else{
-        setTimeout(function(){setBack1n2(input.background_image)},3000)    }
-    
-    return back1n2
-    
- }
-const changePagesHandler=(e)=>{
-    setcurrent(parseInt(e.target.name,10))    
-}
-
-const movingPages=(e)=>{
-    setTimeout(function() {
-        setFadein(true)
-      }, 1500);
-    setAnimation(true)
-    setVisible(false)
-    
-    if(e.target.name==='begining'){
-        setTimeout(function(){
-            setcurrent(0)
-        },2600)
         
     }
-    
-    if(e.target.name==='prev' ){
-        if(current!==0){
-            setTimeout(function(){
-                setcurrent(current-1)
-            },2600)
-        
+
+    const backgroundChange=()=>{
+        if(back1n2===''){setBack1n2(input.background_image)}
+        if(back1n2===input.background_image){
+            setTimeout(function(){setBack1n2(input.background_image_additional)},3000)
         }
+        else{ setTimeout(function(){setBack1n2(input.background_image)},3000)    }
+        
+        return back1n2        
     }
-    if( e.target.name==='start' ){        
+
+    const changePagesHandler=(e)=>{
+        if(parseInt(e.target.name,10)>current){
+            if(Object.entries(errors).length === 0){
+                setcurrent(parseInt(e.target.name,10))
+                
+                
+                for (let i = 2; i < current+2; i++) {
+                    if(!done.includes(p=>p===i)){
+
+                        done.push(i) 
+                        console.log('do'+done)              
+                    }
+                    }
+                setconfirmPag(done.includes(p=>p===parseInt(e.target.name,10)))
+                if(!done.includes(p=>p===parseInt(e.target.name,10))){
+                    setErrors({random:'error random'})
+                }
+            }else{
+                alert('You can not continue until you finish this part of the form.')
+            }
+        }else{
+            setErrors({})
+            setcurrent(parseInt(e.target.name,10))
+            
+        }
+            
+    }
+
+    const movingPages=(e)=>{
+        setTimeout(function() {
+            setFadein(true)
+        }, 1500);
+        setAnimation(true)
+        setVisible(false)
+        
+        if(e.target.name==='begining'){
             setTimeout(function(){
-                setcurrent(current+1)
-            },3000)           
-               
+                setcurrent(0)
+            },2600)            
+        }
+        
+        if(e.target.name==='prev' ){
+            if(current!==0){
+                setTimeout(function(){
+                    setcurrent(current-1)
+                },2600)            
+            }
+        }
+
+        if( e.target.name==='start' ){        
+                setTimeout(function(){
+                    setcurrent(current+1)
+                },3000)                 
+        }
+
+        if(e.target.name==='next' ){
+                setTimeout(function(){
+                    setcurrent(current+1)
+                },2500)           
+        }
+
+        setTimeout(function(){
+            setVisible(true)
+        },2800)
+        setTimeout(function() {
+            setAnimation(false);
+        }, 3000);
+        setTimeout(function() {
+        setFadein(false);
+        }, 1500);
     }
-    if(e.target.name==='next' ){
-            setTimeout(function(){
-                setcurrent(current+1)
-            },2500)           
-    }
-    setTimeout(function(){
-        setVisible(true)
-    },2800)
-    setTimeout(function() {
-        setAnimation(false);
-      }, 3000);
-    setTimeout(function() {
-       setFadein(false);
-      }, 1500);
-}
 
     const submit = async (e) => {
         e.preventDefault()
         setResult('waiting')
-        //  comprobar = await axios.post('http://localhost:3001/videogames', input)
-        //  .then(d=> 
-        //     {   setResult('success')
-        //         return "Videogame created successfully."})
-        //  .catch(e=> {setResult('fail')
-        //     return "we could not complete your request , try again later :("})
-            // alert(comprobar)
-
-        setTimeout(()=>{
-            setResult('success')
+        const re=await  axios.post('http://localhost:3001/videogames', input)
+         .then(d=> 
+            {   setResult('success')
             setcurrent(8)
-        },3000)
-        
-        
-        
+            return"Videogame created successfully."
+                })
+         .catch(e=> {setResult('fail')
+         setcurrent(8)
+         return"we could not complete your request , try again later :("
+             })        
+        // setTimeout(()=>{
+        //     setResult('success')
+        //     setcurrent(8)
+        // },3000)       
         
     }
-const acceptResult=(e)=>{
 
-    if(e.target.name==='yes'){
+    const acceptResult=(e)=>{
 
-        history.push('/create')
-        setcurrent(0)
+        if(e.target.name==='yes'){
+            history.push('/create')
+            window.location.reload()
+        }
+        else{ history.push('/home') }
     }
-    else{
-        history.push('/home')
-    }
-}
 
     return(
         <div className={`create  `}>
@@ -321,8 +401,9 @@ const acceptResult=(e)=>{
                                                 value={input.name} 
                                                 placeholder='name...'
                                                 onChange={handleInputChange}/>
+                                                
                                         </div>
-
+                                        {errors.name && (<div className="danger">{errors.name}</div>)}
                                         <div>
                                             <h1 className='questions'>Let's give it an Id:</h1>
                                             <input 
@@ -333,6 +414,7 @@ const acceptResult=(e)=>{
                                                 placeholder="id..."                 
                                                 onChange={handleInputChangeNumb}
                                                             />
+                                            {errors.id &&(<div className="danger">{errors.id}</div>)}
                                         </div>
                                     </div>
                                     
@@ -354,6 +436,7 @@ const acceptResult=(e)=>{
                                                 type="url" 
                                                 id="fileInput"
                                             ></input>
+                                            {errors.background_image && (<div className="danger">{errors.background_image}</div>)}
                                         </div>
                                     
                                         <div>
@@ -366,6 +449,7 @@ const acceptResult=(e)=>{
                                                 type="url" 
                                                 id="fileInput"
                                             ></input>
+                                            {errors.background_image_additional && (<div className="danger">{errors.background_image_additional}</div>)}
                                         </div>
                                     
                                     </div>
@@ -400,6 +484,7 @@ const acceptResult=(e)=>{
                                                 placeholder="description..."
                                                 
                                                         />
+                                            {errors.description && (<div className="danger">{errors.description}</div>)}
                                         </div> 
                                     </div>
                                 </div>
@@ -434,7 +519,9 @@ const acceptResult=(e)=>{
                                                     
                                                 </div>
                                             ))}
+
                                         </div> 
+                                        {  errors.genres && (<div className="danger">{errors.genres }</div>)}
                                     </div>
                                 </div>
                             )}
@@ -455,10 +542,11 @@ const acceptResult=(e)=>{
                                                                 value={p}                        
                                                                 onClick={(e)=>{Checkbox(e)}} 
                                                                     >
-                                                    {/* {p}*/}
+                                                    
                                                     </button>
                                                 </div>))}
                                         </div>
+                                        {errors.platforms && (<div className="danger">{errors.platforms }</div>)}
                                     </div>
                                     <div className='rigth rp5'>
                                         <h1 className='questions qp5'>What platforms is it available on?</h1>
@@ -486,7 +574,8 @@ const acceptResult=(e)=>{
                                                         min= {0.00}
                                                         max= {5}
                                                         
-                                                    />        
+                                                    /> 
+                                            {errors.rating && (<div className="danger">{errors.rating }</div>)}       
                                         </div>    
        
                                         <div>
@@ -499,12 +588,13 @@ const acceptResult=(e)=>{
                                                     onChange={handleInputChange}
                                                 
                                                 />
+                                                {errors.released &&(<div className="danger">{errors.released}</div>)}
                                         </div>  
 
                                         <button type='button'
                                                 onClick={(e)=>{movingPages(e)}}
                                                 name='next'
-                                                className='nextCreat'>
+                                                className={Object.entries(errors).length === 0 &&input.rating!==''&&input.released!==''?'nextCreat':'notNextCreat'}>
                                            
                                         </button>        
                                     </div>
@@ -588,7 +678,7 @@ const acceptResult=(e)=>{
                                         <img src='go.png' className='failI' alt='game over'/>
                                         <img src='gameOver.png' className='failL' alt='game over'/>
                                     </div>
-                                    <h2 className='comprobarRe'>{comprobar}</h2>
+                                    <h2 className='comprobarRe crF'>We could not complete your request , try again later :{'('}</h2>
                                     <h2 className='playAgain pago'>PLAY AGAIN?</h2>
                                     <div className='ynbtnCont'>
                                         <button className='btnYN btnYNgo '
@@ -607,7 +697,7 @@ const acceptResult=(e)=>{
                                     <div className='winnerCont'>
                                         <img src='win.png' className='winner' alt='winner'/>
                                     </div>
-                                    <h2 className='comprobarRe'>{comprobar}Videogame created successfully.</h2>
+                                    <h2 className='comprobarRe'>Videogame created successfully</h2>
                                     <h2 className='playAgain'>PLAY AGAIN?</h2>
                                     <div className='ynbtnCont'>
                                         <button className='btnYN btnyes'
