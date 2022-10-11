@@ -9,13 +9,13 @@ export const Loading=(props)=>{
                 </div>
            )}
            {props.typeLoader===2 &&(
-                <div>
-                    Loading...
+                <div className='loader2Cont'>
+                    
                 </div>
            )}
            {props.typeLoader===3 &&(
-                <div>
-                    Loading...
+                <div className='loader3Cont'>
+                    <img src='https://i.pinimg.com/originals/9b/ed/a7/9beda78c6eb197e9e962a50e7f6ff09c.gif' alt ='Loading...' className='loader3gif'/>
                 </div>
            )} 
         </div>

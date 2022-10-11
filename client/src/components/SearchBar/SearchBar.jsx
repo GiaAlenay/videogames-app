@@ -83,6 +83,7 @@ export const SearchBar=()=>{
             {searchConfirm && (
                  <div className='searchVideogamesCont' >
                     <button onClick={(e)=>{onClose(e)}}
+                            className='searchClose'
                     >X</button>
                     {VideogamesByName.length===0?(
                         <div>

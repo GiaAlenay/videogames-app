@@ -1,6 +1,10 @@
-/* .searchVideogamesCont{
-    border: 2px solid red
-} */
+.searchVideogamesCont{
+    border: 6px double rgba(102, 99, 99, 0.5);
+    width: 85%;
+    margin-left: 7%;
+    margin-top: 2%;
+    border-radius: 15px;
+}
 .searchform{
     color: rgb(56, 55, 55);
 }
@@ -70,4 +74,27 @@
 .suggestion:hover{
     color: wheat;
     background-color: rgba(99, 96, 96, 0.25);
+}
+
+.searchClose{
+    margin-left: 95%;
+    background-color: rgb(41, 39, 39);
+    width: 5%;
+    height: 40px;
+    border-radius: 12px;
+    font-size: 25px;
+    color: white;
+    cursor: pointer;
+}
+.searchClose:hover{
+    color: #fff;
+  text-shadow:
+      0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px #0fa,
+      0 0 82px #0fa,
+      0 0 92px #0fa,
+      0 0 102px #0fa,
+      0 0 151px #0fa;
 }

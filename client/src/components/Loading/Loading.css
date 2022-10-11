@@ -7,3 +7,55 @@
     margin-top: 13%;
     
 }
+.loader2Cont{
+    position: relative;
+    margin: auto;
+    width: 300px;
+    height: 300px;
+    
+    --colorA: #b78eff;
+    
+}
+
+.loader2Cont::before,
+    .loader2Cont::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        border-radius: 50%;
+        border-top: 10px solid #fff;
+        filter: 
+            drop-shadow(0 0 2px var(--colorA))
+            drop-shadow(0 0 5px var(--colorA))
+            drop-shadow(0 0 10px var(--colorA))
+            drop-shadow(0 0 20px var(--colorA));
+        animation: rotate 3s infinite linear;
+    }
+    
+    .loader2Cont::after {
+        --colorA: #41ffef;
+        animation-delay: -1.5s;
+    }
+.loader2{
+    width: 100%;
+    height: 65vh;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.loader3{
+    width: 100%;
+    height: 100vh;
+}
+.loader3gif{
+    width: 30%;
+    height: auto;
+    margin-top: 7%;
+    
+}

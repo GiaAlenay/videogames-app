@@ -1,0 +1,40 @@
+.landing{
+    background-color: black;
+    background-image: url('https://i.pinimg.com/originals/e7/26/97/e72697f0e27e9ffe53089c1ade7593ee.gif');
+    width: 100%;
+    height: 100vh;
+    overflow:auto;
+    color:white;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+
+.romboLanding{
+    margin-top: 15%;
+    margin-left: 5%;
+    width: 400px; 
+     height: 400px; 
+    
+    
+}
+.listLanding{
+    width: 100%;
+}
+
+.textListLand{
+    all: unset;
+    font-family:'Courier New', Courier, monospace;
+    cursor :pointer;
+    color: white;
+    width: 100%;
+    font-size: 35px;
+    font-weight: bold;
+    
+}
+.textListLand:hover{
+    background-color: rgba(39, 39, 39, 0.5);
+}
+.cho{
+    background-color: rgba(39, 39, 39, 0.5);
+}

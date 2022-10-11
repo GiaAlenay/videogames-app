@@ -64,6 +64,9 @@
     border-radius: 35px 0px 0px 35px ;
     backdrop-filter: blur(5px);
 }
+
+
+
 .currentNumberPage{
     /* border:1px solid red; */
     border: 10px double #6a0d8f ;
@@ -79,10 +82,8 @@
     margin-top:20px;
 }
 
-
 .btnNumberPageCreate{
-    all:unset;
-    
+    all:unset;    
     /* background-color: #000; */
     cursor: pointer;
     color: transparent;
@@ -94,24 +95,35 @@
     background-color: rgb(10, 10, 10,0.2);
 }
 .lock{
+   
     background-color: rgb(10, 10, 10,0.2);
     /* filter: drop-shadow(15px 15px 15px #0c0c0c); */
+    
     margin: 15%;
+    margin-top: 30%;
     width: 55%;
     height: 55%;
 }
 
-.currentCreatePag{
-    
+.currentCreatePag{    
     display: grid;
     grid-template-columns: repeat(2,400px);
     /* margin: 20px; */
     border: none;
     width: 50%;
     height: 100%;
-    margin-right: 0%;
-    
+    margin-right: 0%;    
 }
+
+.currentBorder{
+    text-shadow:
+    0 0 7px #fff,
+   
+    0 0 101px #0fa;
+}
+
+
+
 .rigth{
     margin-right: 0%;
 
@@ -650,12 +662,7 @@
     display: none;
 }
 
-.displayblock{
-    width: 40%;
-}
-.displayNone{
-    width: 0%;;
-}
+
 
 
 .containerlastcreatesteps{
@@ -914,3 +921,6 @@
     font-size: 11px;
     color: white;
 }
+
+
+

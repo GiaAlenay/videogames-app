@@ -6,17 +6,19 @@ import {Home} from './components/Home/Home'
 import{About} from './components/About/About'
 import{Create} from './components/Create/Create'
 import{Detail} from './components/Detail/Deatail'
-
+import {PagenotFound} from './components/pageNotFound/PagenotFound'
+import{Switch} from 'react-router-dom'
 function App() {
   return (
     <div className="App">
-     <React.Fragment>
+     <Switch>
       <Route exact path='/' component={Landing}/>
       <Route exact path='/home' component={Home}/>
       <Route excat path='/about' component={About}/>
-      <Route exact path='/videogames/:id' component={Detail}/>
+      <Route path='/videogames/:id' component={Detail}/>
       <Route exact path='/create' component={Create}/>
-      </React.Fragment> 
+      <Route  component={PagenotFound} />
+      </Switch> 
     </div>
   );
 }

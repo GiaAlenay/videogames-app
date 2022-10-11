@@ -33,24 +33,13 @@ function Validate(input,target,allName,allID){
     }
 
  if(target==='description'){
+
         if(input.description.length===0){errors.description='Please enter a description.'}
+        if(input.description.charCodeAt(0)===32){errors.description='Please enter a description.'}
         return errors
     }
     
-    // if(target==='genres'){   
-          
-    //     if(input.length===0){
-    //         console.log('vacio')  
-    //         errors.genres='Please choose at least one genre.'
-    //     }else{
-    //         console.log('lleno')  
-    //     }
-    //     return errors
-    // }
-    // if(target==='platforms'){
-    //     if (input.platforms.length===0){errors.platforms='Please choose at least one platform'}
-    //     return errors
-    // }
+   
     if(target==='rating'|| target==='released'){
         const array=input.released.split('-')
         let today = new Date();
@@ -61,7 +50,8 @@ function Validate(input,target,allName,allID){
         if (input.rating>5){errors.rating='Rating can not be more than 5 points'}
         if (input.rating<0){errors.rating='Rating can not be less than 0 points'}
         if(input.rating.toString().length>4){errors.rating='Rating can only have two decimals'}
-        
+        if(input.rating.toString().length===0){errors.rating='Rating can not be null'}
+
 
         if(array[0]>yyyy){errors.released='Released date can only be before today.'}
         if(array[0]===yyyy && array[1]>mm){errors.released='Released date can only be before today.'}
@@ -95,8 +85,8 @@ export const Create=()=>{
 
     const[back1n2,setBack1n2]=useState('')
     const[genresObj,setGenresObj]=useState([])
-    const [pagesDone,setPagesDone]=useState([])                                 
-    const[confirmPag,setconfirmPag]=useState()
+    const [max,setMax]=useState(0)                                 
+  
 
      const platformsApi = [
         "PC", "PlayStation 5", "PlayStation 4", "PlayStation 3", "Xbox One", "Xbox Series S/X", "Xbox 360", "Xbox",
@@ -105,7 +95,7 @@ export const Create=()=>{
     const defaultImg='https://www.pngkey.com/png/full/909-9099235_camera-icon-neg-circle.png'
     const pagesleft=[2,3]
     const pagesRigth=[4,5,6]
-   const done=[0,1]
+ 
     useEffect(()=>{  
         setErrors({random:'error random'})      
         dispatch(getGenresAction())
@@ -136,6 +126,24 @@ export const Create=()=>{
         backgroundChange()
     },[back1n2, current])
 
+    useEffect(()=>{
+        if(max<=current){
+            setMax(current)
+        }
+       
+    },[current])
+
+    useEffect(()=>{
+        
+        if(Object.entries(errors).length === 0){
+            if(max===current){
+                setMax(current+1)
+            }
+            else{
+                setMax(max)
+            }
+        }
+    },[errors])
     const handleInputChange=(e)=>{
         setinput({...input,
             [e.target.name]:e.target.value })
@@ -208,25 +216,20 @@ export const Create=()=>{
     }
 
     const changePagesHandler=(e)=>{
-        if(parseInt(e.target.name,10)>current){
+        if(parseInt(e.target.name,10)>=current){
             if(Object.entries(errors).length === 0){
                 setcurrent(parseInt(e.target.name,10))
-                
-                
-                for (let i = 2; i < current+2; i++) {
-                    if(!done.includes(p=>p===i)){
-
-                        done.push(i) 
-                        console.log('do'+done)              
-                    }
-                    }
-                setconfirmPag(done.includes(p=>p===parseInt(e.target.name,10)))
-                if(!done.includes(p=>p===parseInt(e.target.name,10))){
+               
+                if(max<parseInt(e.target.name,10)){
                     setErrors({random:'error random'})
                 }
             }else{
                 alert('You can not continue until you finish this part of the form.')
             }
+        // }if(parseInt(e.target.name,10)===current){
+        //     setcurrent(parseInt(e.target.name,10))
+        //     setErrors({random:'error random'})
+        // }
         }else{
             setErrors({})
             setcurrent(parseInt(e.target.name,10))
@@ -354,7 +357,7 @@ export const Create=()=>{
                 <div className={`containerntnandForm ${animation===true && 'animate_content'} ${fadein===true && 'fade'}`}>
                      
                     <div className='currentpagesNumbers containerleftPag'>
-                        <div className='currentNumberPage'>
+                        <div className={`currentNumberPage ${current===1 && 'currentBorder'}`}>
                                 <button className='btnNumberPageCreate'
                                     onClick={(e)=>{changePagesHandler(e)}}
                                     name={1}
@@ -363,19 +366,16 @@ export const Create=()=>{
                                 </button>
                         </div>
                         {pagesleft?.map((p,i)=>(
-                            <div className='currentNumberPage'>
-                                {/* <div>
-                                    <img className={`lock Close ${current>=p?'displayNone':'displayblock' }`} src='lockClose.png' alt='lockClose'/>
-                                </div> */}
-                                {/* <div>
-                                    <img className="lock Open" src='lockOpen.png' alt='lockOpen'/>
-                                </div>                                 */}
-                                <button name={p}
+                            <div className={`currentNumberPage ${current===p && 'currentBorder'}`}>                                                         
+                                {max>=p ?(<button name={p}
                                         type='button'
                                         onClick={(e)=>{changePagesHandler(e)}}
                                         className={`btnNumberPageCreate `}
                                     >{p}
-                                </button>
+                                </button>):(<div className='lockCont'>
+                                    <img className={`lock Close`} src='lockClose.png' alt='lockClose'/>
+                                </div>)}
+                                
                             </div>
                         ))}
                      </div>
@@ -607,19 +607,18 @@ export const Create=()=>{
                      <div className='currentpagesNumbers'>
                         
                         {pagesRigth?.map((p,i)=>(
-                            <div className='currentNumberPage'>
-                                {/* <div>
-                                    <img className={`lock Close ${current>=p?'displayNone':'displayblock' }`} src='lockClose.png' alt='lockClose'/>
-                                </div> */}
-                                {/* <div>
-                                    <img className="lock Open" src='lockOpen.png' alt='lockOpen'/>
-                                </div>                                 */}
-                                <button name={p}
-                                        type='button'
-                                        onClick={(e)=>{changePagesHandler(e)}}
-                                        className={`btnNumberPageCreate `}
-                                    >{p}
+                            <div className={`currentNumberPage ${current===p && 'currentBorder'}`}>
+                                 {max>=p ?(
+                                    <button name={p}
+                                    type='button'
+                                    onClick={(e)=>{changePagesHandler(e)}}
+                                    className={`btnNumberPageCreate `}
+                                >{p}
                                 </button>
+                                 ):(<div className='lockCont'>
+                                 <img className={`lock Close`} src='lockClose.png' alt='lockClose'/>
+                             </div>)}                             
+                                
                             </div>
                         ))}
                      </div>   
